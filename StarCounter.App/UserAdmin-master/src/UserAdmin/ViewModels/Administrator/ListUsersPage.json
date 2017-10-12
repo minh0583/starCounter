@@ -1,0 +1,24 @@
+{
+    "Uri": "",
+    "Html": "",
+    "$Items": { "Bind": "Users" },
+    "Items": [
+        {
+            "Key": "",
+            "Username": "",
+            "$FullName": { "Bind": "WhoIs.FullName" },
+            "FullName": "",
+            "$Type": { "Bind": "Kind" },
+            "Type": "",
+            "Url": "",
+            "Groups": [
+                {
+                    "Key": "",
+                    "Name": "",
+                    "Url": ""
+                }
+            ],
+            "Delete$": 0
+        }
+    ]
+}

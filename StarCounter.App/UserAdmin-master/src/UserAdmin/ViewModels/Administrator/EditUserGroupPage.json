@@ -1,0 +1,48 @@
+{
+    "Uri": "",
+    "Html": "",
+    "Key": "",
+    "Name$": "",
+    "$SelectedBasedOnGroupID$": { "Bind": "SelectedBasedOnGroupID_" },
+    "SelectedBasedOnGroupID$": "",
+    "$UserGroups": { "Bind": "Groups" },
+    "UserGroups": [
+        {
+            "Key": "",
+            "Name": ""
+        }
+    ],
+    "Members": [
+        {
+            "Key": "",
+            "Username": "",
+            "$FullName": { "Bind": "WhoIs.FullName" },
+            "FullName": "",
+            "Url": "",
+            "Remove$": 0
+        }
+    ],
+    "AddUserName$": "",
+    "AddUser$": 0,
+    "AddUser_Feedback": { },
+
+    "Message": "",
+    "RedirectUrl": "",
+    "Delete$": 0,
+    "Save$": 0,
+    "Close$": 0,
+
+    // Inherited from PropertyMetadataItem
+	"PropertyMetadataItems": [{
+		"$" : { "Reuse" : "PropertyMetadataItem" }
+    }],
+    "$IsDirty": { "Bind": "IsDirty_" },
+    "IsDirty": false,
+    "$IsPristine": { "Bind": "IsPristine_" },
+    "IsPristine": true,
+    "$IsValid": { "Bind": "IsValid_" },
+    "IsValid": true,
+    "$IsInvalid": { "Bind": "IsInvalid_" },
+    "IsInvalid": false,
+    "Rollback$": 0
+}

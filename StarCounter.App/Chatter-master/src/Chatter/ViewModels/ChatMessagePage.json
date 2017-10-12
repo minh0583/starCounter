@@ -1,0 +1,19 @@
+{
+    "Html": "/Chatter/ViewModels/ChatMessagePage.html",
+    "UserName": "",
+    "User": {
+        "Key": "",
+        "Username": "",
+        "Url": "",
+        "WhoIs": {
+            "Name": "",
+            "FirstName": "",
+            "LastName": ""
+        }
+    },
+    "FormattedDateTime": "",
+    "Send$": 0,
+    "Draft": { },
+    "PreviewText": { },
+    "Warning": { }
+}

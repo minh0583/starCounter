@@ -1,0 +1,11 @@
+{
+  "Uri": "",
+  "Html": "/SignIn/viewmodels/SignInPage.html",
+  "IsSignedIn": false,
+  "Message": "",
+  "FullName": "",
+  "SignInClick$": 0,
+  "Submit": 0,
+  "SessionUri": "",
+  "UserImage": {}
+}

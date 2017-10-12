@@ -1,0 +1,65 @@
+﻿.chatter-body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+.chatter-body__nav-menu {
+    background-color: #F0F0F0;
+    border-bottom: 1px solid #C0C0C0;
+}
+
+.chatter-body__nav-menu-ul {
+    display: block;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    overflow: auto;
+}
+
+.chatter-body__nav-menu-il {
+    float: left;
+}
+
+.chatter-body__nav-menu-a {
+    display: block;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: #333333;
+}
+
+.chatter-body__nav-menu-a:hover {
+    background-color: #333333;
+    color: white;
+}
+
+.chatter-body__starcounter-include {
+    padding: 10px 15px;
+}
+
+.chatter-warning {
+    color: crimson;
+    margin-top: 5px;
+    font-size: 105%;
+}
+
+.chatter-user {
+    font-size: 95%;
+    font-weight: bold;
+    font-style: italic;
+    clear: both;
+}
+
+template[bind="{{Images}}"] + div.form-horizontal {
+    display: none;
+}
+
+so-juicy-filedrop {
+    display: block;
+    margin-top: 15px;
+    width: 200px;
+    height: 200px;
+}

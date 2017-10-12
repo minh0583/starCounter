@@ -1,0 +1,84 @@
+<link rel="import" href="/sys/puppet-redirect/puppet-redirect.html" />
+<link rel="import" href="/sys/sgb-property-metadata/sgb-property-metadata.html" />
+<link rel="import" href="/sys/bootstrap.html">
+<link rel="stylesheet" href="/useradmin/css/useradmin.css" />
+
+<template>
+    <template is="dom-bind">
+        <sgb-property-metadata items="{{model.PropertyMetadataItems}}"></sgb-property-metadata>
+        <h2 slot="useradmin/create-user-heading">Create User</h2>
+
+        <label slot="useradmin/create-user-username-label" class="control-label" for="Username$">Username</label>
+        <input slot="useradmin/create-user-username-input" id="Username$" type="text" value="{{model.Username$::input}}" placeholder="Username" class="form-control" />
+
+        <starcounter-include slot="useradmin/create-user-password-partial" partial="{{model.SystemUserPasswordPage}}"></starcounter-include>
+        
+        <label slot="useradmin/create-user-person-label" class="control-label" for="Person$">Person</label>
+        <div slot="useradmin/create-user-person-input" class="useradmin-autocomplete">
+            <input id="Person$" type="text" value="{{model.PersonName$::input}}" on-blur="onPersonBlur" placeholder="Search person or left empty for new..." class="form-control" />
+            <template is="dom-if" if="{{model.FoundPersons.length}}" restamp>
+                <ul class="autocomplete dropdown-menu useradmin-autocomplete__dropdown">
+                    <template is="dom-repeat" items="{{model.FoundPersons}}">
+                        <li>
+                            <a value="{{item.Choose$::mousedown}}" onmousedown="++this.value" href="javascript:">{{item.Name}}</a>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+        </div>
+
+        <label slot="useradmin/create-user-firstname-label" class="control-label" for="FirstName$">FirstName</label>
+        <input slot="useradmin/create-user-firstname-input" id="FirstName$" type="text" value="{{model.FirstName$::input}}" placeholder="FirstName" class="form-control" />
+
+        <label slot="useradmin/create-user-lastname-label" class="control-label" for="LastName$">LastName</label>
+        <input slot="useradmin/create-user-lastname-input" id="LastName$" type="text" value="{{model.LastName$::input}}" placeholder="LastName" class="form-control" />
+
+        <template is="dom-if" if="{{model.Message}}">
+            <p slot="useradmin/create-user-message" class="alert">{{model.Message}}</p>
+        </template>
+        
+        <button slot="useradmin/create-user-save-button" class="btn btn-primary" disabled="{{model.IsInvalid}}" onclick="++this.value" value="{{model.Save$::click}}">Save</button>
+        <button slot="useradmin/create-user-close-button" class="btn btn-default" onclick="++this.value;" value="{{model.Close$::click}}">Close</button>
+
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+    </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+            var model = template.model;
+
+            template.onPersonBlur = function (e) {
+                setTimeout(function () {
+                    template.set("model.ClearFoundPersons$", model.ClearFoundPersons$ + 1);
+                }, 150);
+            };
+        })();
+    </script>
+    <template is="declarative-shadow-dom">
+        <style>
+            @import url("/UserAdmin/css/useradmincomposition.css");
+        </style>
+        <slot name="useradmin/create-user-heading"></slot>
+            <slot name="useradmin/create-user-username-label"></slot>
+        <slot name="useradmin/create-user-username-input"></slot>
+        <slot name="useradmin/create-user-password-partial"></slot>
+        <div class="useradmin-horizontal-label">
+            <slot name="useradmin/create-user-person-label"></slot>
+        </div>
+        <slot name="useradmin/create-user-person-input"></slot>
+        <div class="useradmin-horizontal-label">
+            <slot name="useradmin/create-user-firstname-label"></slot>
+        </div>
+        <slot name="useradmin/create-user-firstname-input"></slot>
+        <div class="useradmin-horizontal-label">
+            <slot name="useradmin/create-user-lastname-label"></slot>
+        </div>
+        <slot name="useradmin/create-user-lastname-input"></slot>
+        <slot name="useradmin/create-user-message"></slot>
+        <div class="useradmin-buttons-section">
+            <slot name="useradmin/create-user-save-button"></slot>
+            <slot name="useradmin/create-user-close-button"></slot>
+        </div>
+    </template>
+</template>

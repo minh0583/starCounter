@@ -1,0 +1,43 @@
+<link rel="import" href="/sys/bootstrap.html">
+
+<template>
+    <template is="dom-bind">
+        <h2 slot="useradmin/users-list-heading">System users</h2>
+        <table slot="useradmin/users-list-table" class="table">
+            <thead>
+                <tr>
+                    <th>Sign-in name</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Member in</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="{{model.Items}}">
+                    <tr>
+                        <td>
+                            <a href="{{item.Url}}">{{item.Username}}</a>
+                        </td>
+                        <td>
+                            <a href="{{item.Url}}">{{item.FullName}}</a>
+                        </td>
+                        <td>{{item.Type}}</td>
+                        <td>
+                            <template is="dom-repeat" items="{{item.Groups}}" as="group" index-as="groupIndex">
+                                <template is="dom-if" if="{{groupIndex}}">
+                                    ,&nbsp;
+                                </template>
+                                <a href="{{group.Url}}">{{group.Name}}</a>
+                            </template>
+                        </td>
+                        <td>
+                            <button onclick="++this.value;" class="btn btn-default btn-xs" value="{{item.Delete$::click}}">Delete</button>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <a slot="useradmin/users-list-create-button" class="btn btn-primary btn-sm" href="/UserAdmin/admin/createuser">Create User</a>
+    </template>
+</template>

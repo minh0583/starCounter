@@ -1,0 +1,15 @@
+﻿<template>
+    <template is="dom-bind">
+        <div class="chatter-user">
+            <template is="dom-if" if="{{model.User.WhoIs.Name}}">
+                <a href="{{model.User.Url}}">{{model.User.WhoIs.Name}}</a>
+            </template>
+            <template is="dom-if" if="{{!model.User.WhoIs.Name}}">
+                <span>Anonymous</span>
+            </template>
+            at
+            <time>{{model.FormattedDateTime}}</time>
+        </div>
+        <starcounter-include partial="{{model.PreviewText}}"></starcounter-include>
+    </template>
+</template>

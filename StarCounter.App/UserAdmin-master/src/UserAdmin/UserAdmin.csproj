@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProductVersion>9.0.20706</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{C86118D7-451E-4933-BFEE-A1EFDB162FD7};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{EA683FF4-7931-4461-BA30-F33E3E815638}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UserAdmin</RootNamespace>
+    <AssemblyName>UserAdmin</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Simplified.Data.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Starcounter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d2df1e81d0ca3abf">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Starcounter.Internal, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d2df1e81d0ca3abf">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Starcounter.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d2df1e81d0ca3abf">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Starcounter.XSON, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d2df1e81d0ca3abf">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\LauncherHooks.cs" />
+    <Compile Include="Api\SystemUserGroupsHandlers.cs" />
+    <Compile Include="Api\SystemUsersHandlers.cs" />
+    <Compile Include="Api\CommitHooks.cs" />
+    <Compile Include="Helpers\SystemUserAdmin.cs" />
+    <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Helpers\Utils.cs" />
+    <Compile Include="MasterPage.json.cs">
+      <DependentUpon>MasterPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AccessDeniedPage.json.cs">
+      <DependentUpon>AccessDeniedPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Administrator\CreateUserGroupPage.json.cs">
+      <DependentUpon>CreateUserGroupPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Administrator\CreateUserPage.json.cs">
+      <DependentUpon>CreateUserPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Administrator\EditPersonPage.json.cs">
+      <DependentUpon>EditPersonPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Administrator\EditUserGroupPage.json.cs">
+      <DependentUpon>EditUserGroupPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Administrator\ListUserGroupsPage.json.cs">
+      <DependentUpon>ListUserGroupsPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Administrator\ListUsersPage.json.cs">
+      <DependentUpon>ListUsersPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Administrator\SearchResultPage.json.cs">
+      <DependentUpon>SearchResultPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Administrator\SomebodyPage.json.cs">
+      <DependentUpon>SomebodyPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Administrator\SystemUserGroupItem.json.cs">
+      <DependentUpon>SystemUserGroupItem.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Launcher\AdminMenu.json.cs">
+      <DependentUpon>AdminMenu.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PropertyMetadata\PropertyMetadataPage.json.cs">
+      <DependentUpon>PropertyMetadataPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RedirectPage.json.cs">
+      <DependentUpon>RedirectPage.json</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\UnauthenticatedPage.json.cs">
+      <DependentUpon>UnauthenticatedPage.json</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\sys\sgb-property-metadata\sgb-property-metadata.html" />
+    <Content Include="wwwroot\UserAdmin\css\useradmin.css" />
+    <Content Include="wwwroot\UserAdmin\css\useradmincomposition.css" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\UnauthenticatedPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\AccessDeniedPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\launcher\AppMenuPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\launcher\MasterPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\EditUserGroupPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\ListUserGroupsPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\CreateUserGroupPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\CreateUserPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\RedirectPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\launcher\AppIconPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\launcher\AppSearchPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\launcher\UserAdmin.png" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\EditPersonPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\ListUsersPage.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\RedirectPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\CreateUserGroupPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\CreateUserPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\EditPersonPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\EditUserGroupPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\ListUserGroupsPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\ListUsersPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\SearchResultPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\SomebodyPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Launcher\AdminMenu.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Launcher\AppName.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\AccessDeniedPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="MasterPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\SystemUserGroupItem.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\PropertyMetadata\PropertyMetadataItems.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="ViewModels\PropertyMetadata\PropertyMetadataItem.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+    <TypedJSON Include="ViewModels\PropertyMetadata\PropertyMetadataPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\UnauthenticatedPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(StarcounterBin)\Starcounter.MsBuild.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,23 @@
+{
+    "Uri": "",
+    "Html": "",
+    "Key": "",
+    "Username": "",
+    "$FullName": { "Bind": "WhoIs.FullName" },
+    "FullName": "",
+	"Groups": [{
+		"$" : { "Reuse" : "UserAdmin.ViewModels.Administrator.SystemUserGroupItem" }
+    }],
+    "Message": "",
+    "RedirectUrl": "",
+
+    "AddUserToGroup$": 0,
+
+	"PropertyMetadataItems": [{
+		"$" : { "Reuse" : "PropertyMetadataItem" }
+    }],
+
+    "Delete$": 0,
+    "Save$": 0,
+    "Close$": 0
+}

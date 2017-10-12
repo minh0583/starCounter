@@ -1,0 +1,74 @@
+﻿.useradmin-grid {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.useradmin-grid__cell {
+    border: 1px solid #cccccc;
+    padding: 2px 4px 2px 4px;
+    background-color: #ffffff;
+}
+
+.useradmin-grid__cell--header {
+    border: 1px solid #cccccc;
+    padding: 4px;
+    color: #555555;
+    background-color: #eeeeee;
+}
+
+.useradmin-form-error {
+    margin: 0px 0px;
+    padding: 3px 5px 3px 5px;
+    align-self: center;
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+
+.useradmin-input-append {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.useradmin-input-append__select {
+    flex: 1 1 auto;
+}
+
+.useradmin-input-append__button {
+    flex: 0 1 auto;
+    margin-left: 1em;
+}
+
+.useradmin-primary-button {
+    background-color: #11653B;
+}
+
+.useradmin-autocomplete {
+}
+
+.useradmin-autocomplete__dropdown {
+    display: block;
+    left: initial;
+    top: initial;
+}
+
+textarea:invalid {
+    background-color: rgb(243, 60, 60);
+    color: white;
+}
+
+input[type=text]:invalid {
+    background-color: rgb(243, 60, 60);
+    color: white;
+}
+
+input[type=email]:invalid {
+    background-color: rgb(243, 60, 60);
+    color: white;
+}
+
+input[type=number]:invalid {
+    background-color: rgb(243, 60, 60);
+    color: white;
+}

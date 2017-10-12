@@ -1,0 +1,131 @@
+<link rel="import" href="/sys/puppet-redirect/puppet-redirect.html" />
+<link rel="import" href="/sys/sgb-property-metadata/sgb-property-metadata.html" />
+<link rel="import" href="/sys/bootstrap.html">
+<link rel="stylesheet" href="/UserAdmin/css/useradmin.css" />
+
+<template>
+    <template is="dom-bind">
+        <sgb-property-metadata items="{{model.PropertyMetadataItems}}"></sgb-property-metadata>
+        <span slot="useradmin/edit-user-group-heading-name">{{model.Name$}}</span>
+        <small slot="useradmin/edit-user-group-heading-label">System Usergroup</small>
+
+        <label slot="useradmin/edit-user-group-name-label" class="control-label" for="Name$">Name</label>
+
+        <input slot="useradmin/edit-user-group-name-input" id="Name$" type="text" value="{{model.Name$::change}}" placeholder="Name" class="form-control" />
+
+        <label slot="useradmin/edit-user-group-belongs-label" class="control-label" for="BasedOn">Belongs To</label>
+
+        <select slot="useradmin/edit-user-group-belongs-select" value="{{model.SelectedBasedOnGroupID$::change}}" id="BasedOn" class="form-control">
+            <template restamp="true" is="dom-repeat" items="{{model.UserGroups}}">
+                <template restamp="false" is="dom-if" if="{{ isEqual(item.Key,model.SelectedBasedOnGroupID$) }}">
+                    <option selected="selected" value="{{item.Key}}">{{item.Name}}</option>
+                </template>
+                <template restamp="false" is="dom-if" if="{{ !isEqual(item.Key,model.SelectedBasedOnGroupID$) }}">
+                    <option value="{{item.Key}}">{{item.Name}}</option>
+                </template>
+            </template>
+        </select>
+        
+        <div slot="useradmin/edit-user-group-message">
+            <template is="dom-if" if="{{model.Message}}">
+                <p>{{model.Message}}</p>
+            </template>
+        </div>
+
+        <h3 slot="useradmin/edit-user-members-heading">Members</h3>
+        <table slot="useradmin/edit-user-members-table" class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <template is="dom-repeat" items="{{model.Members}}">
+                <tr>
+
+                    <td>
+                        <a href="{{item.Url}}">{{item.FullName}}</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-default btn-xs" onclick="++this.value;" value="{{item.Remove$::click}}">Remove</button>
+                    </td>
+                </tr>
+            </template>
+            </tbody>
+        </table>
+        <div slot="useradmin/edit-user-add-feedback-message">
+            <template is="dom-if" if="{{model.AddUser_Feedback.Message}}">
+                <span class="useradmin-form-error">{{model.AddUser_Feedback.Message}}</span>
+            </template>
+        </div>
+
+        <input slot="useradmin/edit-user-add-user-input" id="AddUserName$" type="text" value="{{model.AddUserName$::change}}" placeholder="Username" class="form-control" />
+        <button slot="useradmin/edit-user-add-user-button" class="btn btn-default btn-sm" onclick="++this.value;" value="{{model.AddUser$::click}}">Add User</button>
+
+        <button slot="useradmin/edit-user-save-button" class="btn btn-primary" disabled$="{{isSaveDisabled(model.IsInvalid, model.IsPristine)}}" onclick="++this.value;" value="{{model.Save$::click}}">Save</button>
+        <button slot="useradmin/edit-user-delete-button" class="btn btn-default" onclick="++this.value;" value="{{model.Delete$::click}}">Delete</button>
+        <button slot="useradmin/edit-user-undo-button" class="btn btn-default" disabled$="{{model.IsPristine}}" onclick="++this.value;" value="{{model.Rollback$::click}}">Undo</button>
+        <button slot="useradmin/edit-user-close-button" class="btn btn-default" onclick="++this.value;" value="{{model.Close$::click}}">Close</button>
+
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+    </template>
+    <script>
+        (function (template) {
+            template.isSaveDisabled = function (IsInvalid, IsPristine) {
+                return IsInvalid || IsPristine;
+            };
+
+            template.isResetPassportDisabled = function (IsDirty, ResetPassword_Enabled) {
+                return IsDirty || !ResetPassword_Enabled;
+            };
+
+
+            template.isEqual = function (value1, value2) {
+                return value1 === value2;
+            }
+
+        })(document.currentScript.previousElementSibling);
+    </script>
+    <template is="declarative-shadow-dom">
+        <style>
+            @import url("/UserAdmin/css/useradmincomposition.css");
+        </style>
+        <div class="useradmin-page-header">
+            <div class="useradmin-page-header__name">
+                <slot name="useradmin/edit-user-group-heading-name"></slot>
+            </div>
+            <div class="useradmin-page-header__group">
+                <slot name="useradmin/edit-user-group-heading-label"></slot>
+            </div>
+        </div>
+
+        <div class="useradmin-horizontal-label">
+            <slot name="useradmin/edit-user-group-name-label"></slot>
+        </div>
+        <div>
+            <slot name="useradmin/edit-user-group-name-input"></slot>
+        </div>
+        <div class="useradmin-horizontal-label">
+            <slot name="useradmin/edit-user-group-belongs-label"></slot>
+        </div>
+        <div>
+            <slot name="useradmin/edit-user-group-belongs-select"></slot>
+        </div>
+        <slot name="useradmin/edit-user-group-message"></slot>
+        <slot name="useradmin/edit-user-members-heading"></slot>
+        <slot name="useradmin/edit-user-members-table"></slot>
+        <slot name="useradmin/edit-user-add-feedback-message"></slot>
+        <div>
+            <slot name="useradmin/edit-user-add-user-input"></slot>
+            <slot name="useradmin/edit-user-add-user-button"></slot>
+        </div>
+        <div class="useradmin-buttons-section">
+            <slot name="useradmin/edit-user-save-button"></slot>
+            <slot name="useradmin/edit-user-delete-button"></slot>
+            <slot name="useradmin/edit-user-undo-button"></slot>
+            <slot name="useradmin/edit-user-close-button"></slot>
+        </div>
+
+    </template>
+</template>

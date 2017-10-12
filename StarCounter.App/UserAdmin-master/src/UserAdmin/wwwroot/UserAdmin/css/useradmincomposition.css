@@ -1,0 +1,33 @@
+﻿.useradmin-horizontal-label {
+    padding-top: 5px;
+}
+
+.useradmin-buttons-section {
+    margin-top: 20px;
+}
+
+.useradmin-input-append {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.useradmin-input-append__select {
+    flex: 1 1 auto;
+}
+
+.useradmin-page-header {
+    line-height: 35px;
+}
+
+.useradmin-page-header__name {
+    font-size: 3em;
+}
+
+.useradmin-page-header__group {
+    padding-bottom: 9px;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #B7B7B7;
+}

@@ -1,0 +1,42 @@
+﻿<link rel="import" href="/Chatter/elements/chatter-expander.html" />
+<link href="/Chatter/css/chatter.css" rel="stylesheet" />
+
+<template>
+    <template is="dom-bind">
+        <h2 class="chatter-group-subheading" slot="chatter/header">{{model.Name}}</h2>
+        <a href="/chatter" class="btn btn-default btn-sm" slot="chatter/back">Go back</a>
+        <div class="chatter-group-user" slot="chatter/user">
+            <template is="dom-if" if="{{model.UserKey}}">
+                Signed in as
+                <b>{{model.UserName$}}</b>
+            </template>
+            <template is="dom-if" if="{{!model.UserKey}}">
+                You are not signed in, you messages will be send anonymously
+            </template>
+        </div>
+        <div class="chatter-group-messages" slot="chatter/messages">
+            <template is="dom-repeat" items="{{model.ChatMessagePages}}">
+                <starcounter-include partial="{{item}}"></starcounter-include>
+            </template>
+        </div>
+        <div slot="chatter/draft-message">
+            <starcounter-include partial="{{model.ChatMessageDraft}}"></starcounter-include>
+        </div>
+    </template>
+
+    <template is="declarative-shadow-dom">
+        <style>
+            @import url("/Chatter/css/chatter.css");
+        </style>
+
+        <slot name="chatter/header"></slot>
+        <slot name="chatter/back"></slot>
+        <slot name="chatter/user"></slot>
+        <slot name="chatter/messages"></slot>
+        <chatter-expander label="Write message">
+            <div>
+                <slot name="chatter/draft-message"></slot>
+            </div>
+        </chatter-expander>
+    </template>
+</template>

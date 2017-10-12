@@ -1,0 +1,20 @@
+{
+  "name": "UserAdmin",
+  "version": "0.0.0",
+  "authors": [
+    "andwah <anders.wahlgren@societyobjects.com>"
+  ],
+  "description": "User Administration Application",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "sys",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sgb-property-metadata": "Smorgasbord-Development/sgb-property-metadata"
+  }
+}

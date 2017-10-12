@@ -1,0 +1,61 @@
+﻿<link rel="import" href="/sys/puppet-redirect/puppet-redirect.html" />
+<link href="/Chatter/css/chatter.css" rel="stylesheet" />
+
+<template>
+    <template is="dom-bind">
+        <h1 class="chatter-lobby-heading" slot="chatter/header">Select or create chat room</h1>
+        <input class="form-control" slot="chatter/new-group-name" value="{{model.NewGroupName$::input}}" on-keyup="onInputKeyup" placeholder="Chat room name" />
+        <button class="btn btn-primary" slot="chatter/create-group" onmousedown="++this.value;" value="{{model.GoToNewGroup$::click}}">Create</button>
+
+        <table class="chatter-lobby-table table table-bordered" slot="chatter/groups">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="{{model.ChatGroups}}">
+                    <tr>
+                        <td class="chatter-lobby-table__cell">
+                            <span>{{item.Name}}</span>
+                        </td>
+                        <td>
+                            <a href="{{item.Url}}" class="btn btn-primary btn-sm">Enter</a>
+                            <button class="btn btn-sm btn-default" type="button" onclick="++this.value;" value="{{item.Delete$::click}}">Delete</button>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <link is="puppet-redirect" slot="chatter/redirect" history url$="{{model.RedirectUrl$}}" />
+    </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template.onInputKeyup = function (e) {
+                if (e.keyCode == 13) {
+                    template.set("model.GoToNewGroup$", template.model.GoToNewGroup$ + 1);
+                }
+            };
+        })();
+    </script>
+    <template is="declarative-shadow-dom">
+        <style>
+            @import url("/Chatter/css/chatter.css");
+        </style>
+
+        <slot name="chatter/header"></slot>
+        <div class="chatter-lobby-input">
+            <slot name="chatter/new-group-name"></slot>
+        </div>
+        <div class="chatter-lobby-button">
+            <slot name="chatter/create-group"></slot>
+        </div>
+        <slot name="chatter/groups"></slot>
+        <slot name="chatter/redirect"></slot>
+    </template>
+</template>

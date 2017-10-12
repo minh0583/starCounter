@@ -1,0 +1,49 @@
+{
+    "Uri": "",
+    "Html": "",
+    "Key": "",
+    "Username": "",
+    "$FullName": { "Bind": "WhoIs.FullName" },
+    "FullName": "",
+	"Groups": [{
+		"$" : { "Reuse" : "UserAdmin.ViewModels.Administrator.SystemUserGroupItem" }
+    }],
+    "Message": "",
+    "RedirectUrl": "",
+
+    "$SelectedSystemUserGroupsID$": { "Bind": "SelectedSystemUserGroupID_" },
+    "SelectedSystemUserGroupsID$": "",
+    "$SystemUserGroups": { "Bind": "SystemUserGroups_" },
+    "SystemUserGroups": [
+        {
+            "Key": "",
+            "Name": ""
+        }
+    ],
+    "AddUserToGroup$": 0,
+
+    "Delete$": 0,
+    "Save$": 0,
+    "Close$": 0,
+
+    "$FirstName$": { "Bind": "WhoIs.FirstName" },
+    "FirstName$": "",
+    "$LastName$": { "Bind": "WhoIs.LastName" },
+    "LastName$": "",
+
+    "SystemUserAuthenticationSettingsPage": {},
+
+    // Inherited from PropertyMetadataItem
+	"PropertyMetadataItems": [{
+		"$" : { "Reuse" : "PropertyMetadataItem" }
+    }],
+    "$IsDirty": { "Bind": "IsDirty_" },
+    "IsDirty": false,
+    "$IsPristine": { "Bind": "IsPristine_" },
+    "IsPristine": true,
+    "$IsValid": { "Bind": "IsValid_" },
+    "IsValid": true,
+    "$IsInvalid": { "Bind": "IsInvalid_" },
+    "IsInvalid": false,
+    "Rollback$": 0
+}

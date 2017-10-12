@@ -1,0 +1,19 @@
+{
+    "Uri": "",
+    "Html": "",
+    "$Items": { "Bind": "Groups" },
+    "Items": [
+        {
+            "Key": "",
+            "Name": "",
+            "$BasedOn": { "Bind": "BasedOn_" },
+            "Url": "",
+            "BasedOn": {
+                "Key": "",
+                "Name": "",
+                "Url": ""
+            },
+            "Delete$": 0
+        }
+    ]
+}

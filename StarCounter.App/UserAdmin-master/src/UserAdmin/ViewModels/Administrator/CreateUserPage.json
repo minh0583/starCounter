@@ -1,0 +1,41 @@
+{
+  "Uri": "",
+  "Html": "",
+  "Key": "",
+
+  "Username$": "",
+  "FirstName$": "",
+  "LastName$": "",
+
+  "PersonName$": "",
+  "FoundPersons": [
+    {
+      "Name": "",
+      "Choose$": 0
+    }
+  ],
+
+  "Save$": 0,
+  "Close$": 0,
+  "RedirectUrl": "",
+  "Message": "",
+  "ClearFoundPersons$": 0,
+
+  "SystemUserPasswordPage": {},
+
+  // Inherited from PropertyFeedbackPage
+  "PropertyMetadataItems": [
+    {
+      "$": { "Reuse": "PropertyMetadataItem" }
+    }
+  ],
+  "$IsDirty": { "Bind": "IsDirty_" },
+  "IsDirty": false,
+  "$IsPristine": { "Bind": "IsPristine_" },
+  "IsPristine": true,
+  "$IsValid": { "Bind": "IsValid_" },
+  "IsValid": true,
+  "$IsInvalid": { "Bind": "IsInvalid_" },
+  "IsInvalid": false,
+  "Rollback$": 0
+}

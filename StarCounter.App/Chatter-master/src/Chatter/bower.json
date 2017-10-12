@@ -1,0 +1,14 @@
+{
+  "name": "Chatter",
+  "homepage": "https://github.com/StarcounterSamples/Chatter",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "wwwroot/sys",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}

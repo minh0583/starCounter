@@ -1,0 +1,14 @@
+{
+    "Html": "",
+    "NewGroupName$": "",
+    "GoToNewGroup$": 0,
+    "RedirectUrl$": "",
+    "ChatGroups": [
+        {
+            "Name": "",
+            "Key": "",
+            "Delete$": 0,
+            "Url": ""
+        }
+    ]
+}

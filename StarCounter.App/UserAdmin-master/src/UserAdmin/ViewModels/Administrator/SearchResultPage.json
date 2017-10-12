@@ -1,0 +1,19 @@
+{
+    "Html": "",
+    "Users": [
+        {
+            "Uri": "",
+            "$Uri": { "Bind": "UserUri" },
+            "Username": "",
+            "FullName": "",
+            "$FullName": { "Bind": "WhoIs.FullName" }
+        }
+    ],
+    "Groups": [
+        {
+            "Uri": "",
+            "$Uri": { "Bind": "GroupUri" },
+            "Name": ""
+        }
+    ]
+}

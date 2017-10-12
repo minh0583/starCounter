@@ -1,0 +1,38 @@
+<link rel="import" href="/sys/puppet-redirect/puppet-redirect.html" />
+<link rel="import" href="/sys/sgb-property-metadata/sgb-property-metadata.html" />
+<link rel="import" href="/sys/bootstrap.html">
+<link rel="stylesheet" href="/useradmin/css/useradmin.css" />
+
+<template>
+    <template is="dom-bind">
+        <sgb-property-metadata items="{{model.PropertyMetadataItems}}"></sgb-property-metadata>
+        <h2 slot="useradmin/create-user-group-heading">Create Group</h2>
+
+        <label slot="useradmin/create-user-group-name-label" class="control-label" for="Name$">Name</label>
+
+        <input slot="useradmin/create-user-group-name-input" id="Name$" type="text" value="{{model.Name$::input}}" placeholder="Name"  class="form-control" />
+
+        <template is="dom-if" if="{{model.Message}}">
+            <p slot="useradmin/create-user-group-message">{{model.Message}}</p>
+        </template>
+
+        <button slot="useradmin/create-user-group-save-button" class="btn btn-primary" onclick="++this.value;" value="{{model.Save$::click}}">Save</button>
+        <button slot="useradmin/create-user-group-close-button" class="btn btn-default" onclick="++this.value;" value="{{model.Close$::click}}">Close</button>
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+    </template>
+    <template is="declarative-shadow-dom">
+        <style>
+            @import url("/UserAdmin/css/useradmincomposition.css");
+        </style>
+        <slot name="useradmin/create-user-group-heading"></slot>
+        <div class="useradmin-horizontal-label">
+            <slot name="useradmin/create-user-group-name-label"></slot>
+        </div>
+        <slot name="useradmin/create-user-group-name-input"></slot>
+        <slot name="useradmin/create-user-group-message"></slot>
+        <div class="useradmin-buttons-section">
+            <slot name="useradmin/create-user-group-save-button"></slot>
+            <slot name="useradmin/create-user-group-close-button"></slot>
+        </div>
+    </template>
+</template>

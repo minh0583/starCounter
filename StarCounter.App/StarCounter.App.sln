@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{EE12C606-C7F0-4F9D-BD40-A99C49D64154}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Client", "01 Client", "{45E95BEF-3362-409C-B584-04D237B77C76}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Service", "02 Service", "{F14C62F9-7B50-4D6D-A6F9-9B89B5354273}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Domain", "03 Domain", "{99C87B73-E105-4EFA-AEE5-DB9EC2683ED0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Infrastructure", "04 Infrastructure", "{EB575FFB-59D0-4FE1-BF54-A8AB4A24B23E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Data", "05 Data", "{C9BB0C80-7582-4AC1-A7D3-E444F19C7942}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 UnitTests", "06 UnitTests", "{A295D742-E3C1-4311-8711-69478BCD77AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{06B78DA2-9580-4EBD-B9DA-95D5D87FF06B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignIn", "SignIn", "{D2CBCD73-F435-446B-B3F9-AC9CCB1D63C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserAdmin", "UserAdmin", "{123C3FA2-8FC6-4817-BFB4-69275D3E46B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignIn", "SignIn-master\src\SignIn\SignIn.csproj", "{AD9637E2-BC66-48CF-AFEF-AAE2454413EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAdmin", "UserAdmin-master\src\UserAdmin\UserAdmin.csproj", "{EA683FF4-7931-4461-BA30-F33E3E815638}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatter", "Chatter-master\src\Chatter\Chatter.csproj", "{791978EC-265C-4271-BDBC-B385FD49D8A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD9637E2-BC66-48CF-AFEF-AAE2454413EF}.Debug|x64.ActiveCfg = Debug|x64
+		{AD9637E2-BC66-48CF-AFEF-AAE2454413EF}.Debug|x64.Build.0 = Debug|x64
+		{AD9637E2-BC66-48CF-AFEF-AAE2454413EF}.Release|x64.ActiveCfg = Release|x64
+		{AD9637E2-BC66-48CF-AFEF-AAE2454413EF}.Release|x64.Build.0 = Release|x64
+		{EA683FF4-7931-4461-BA30-F33E3E815638}.Debug|x64.ActiveCfg = Debug|x64
+		{EA683FF4-7931-4461-BA30-F33E3E815638}.Debug|x64.Build.0 = Debug|x64
+		{EA683FF4-7931-4461-BA30-F33E3E815638}.Release|x64.ActiveCfg = Release|x64
+		{EA683FF4-7931-4461-BA30-F33E3E815638}.Release|x64.Build.0 = Release|x64
+		{791978EC-265C-4271-BDBC-B385FD49D8A6}.Debug|x64.ActiveCfg = Debug|x64
+		{791978EC-265C-4271-BDBC-B385FD49D8A6}.Debug|x64.Build.0 = Debug|x64
+		{791978EC-265C-4271-BDBC-B385FD49D8A6}.Release|x64.ActiveCfg = Release|x64
+		{791978EC-265C-4271-BDBC-B385FD49D8A6}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2CBCD73-F435-446B-B3F9-AC9CCB1D63C5} = {F14C62F9-7B50-4D6D-A6F9-9B89B5354273}
+		{123C3FA2-8FC6-4817-BFB4-69275D3E46B9} = {F14C62F9-7B50-4D6D-A6F9-9B89B5354273}
+		{AD9637E2-BC66-48CF-AFEF-AAE2454413EF} = {D2CBCD73-F435-446B-B3F9-AC9CCB1D63C5}
+		{EA683FF4-7931-4461-BA30-F33E3E815638} = {123C3FA2-8FC6-4817-BFB4-69275D3E46B9}
+		{791978EC-265C-4271-BDBC-B385FD49D8A6} = {45E95BEF-3362-409C-B584-04D237B77C76}
+	EndGlobalSection
+EndGlobal
