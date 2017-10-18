@@ -1,0 +1,86 @@
+﻿<link rel="import" href="/SignIn/elements/signin-element.html" />
+
+<template>
+    <template is="dom-bind">
+        <h2 slot="SignIn/header">Sign in</h2>
+        <template is="dom-if" if="{{model.Message}}">
+            <p class="alert alert-danger" slot="SignIn/message">{{model.Message}}</p>
+        </template>
+        <label slot="SignIn/username-label" for="txtUsername">Username</label>
+        <input slot="SignIn/username-input" id="txtUsername" name="username" type="text" value="{{local.username::input}}" placeholder="Username" class="form-control" on-keypress="txtKeypress"/>
+        <label slot="SignIn/password-label" for="txtPassword">Password</label>
+        <assas action="{{thing}}"></assas>
+        <input slot="SignIn/password-input" id="txtPassword" name="password" type="password" value="{{local.password::input}}" placeholder="Password" class="form-control" on-keypress="txtKeypress"/>
+        <input slot="SignIn/rememberme-checkbox" type="checkbox" checked="{{local.rememberMe::change}}"/>
+        <span slot="SignIn/rememberme-label">Remember me</span>
+        <button slot="SignIn/submit-button" type="submit" class="btn btn-primary" value="{{model.SignInClick$::click}}" disabled="{{model.SignInClick$}}" onmouseup="++this.value;">Sign in</button>
+        <button slot="SignIn/forgot-button" type="button" class="btn btn-link" value="{{model.RestoreClick$::click}}" disabled="{{model.RestoreClick$::click}}" onmouseup="++this.value;">Forgot password?</button>
+        <template is="dom-if" if="{{model.CanCreateAdminUser}}">
+            <button slot="SignIn/create-Admin-User-button" type="button" class="btn btn-link" value="{{model.CreateAdminClick$::click}}" onmousedown="++this.value;">Create Admin Account</button>
+        </template>
+        <signin-element slot="SignIn/signin-element" username="{{local.username}}" password="{{local.password}}" remember-me="{{local.rememberMe}}" submit="{{model.Submit}}" session-uri="{{model.SessionUri}}"></signin-element>
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+    </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template.local = {
+                username: "",
+                password: "",
+                rememberMe: false
+            };
+
+            template.txtKeypress = function (e) {
+                if (e.which != 13) {
+                    return;
+                }
+
+                setTimeout(function () {
+                    template.set("model.SignInClick$", template.model.SignInClick$ + 1);
+                });
+            };
+        })();
+    </script>
+
+    <template is="declarative-shadow-dom">
+        <style>
+            @import url("/SignIn/css/signin.css");
+        </style>
+        <slot name="SignIn/header"></slot>
+        <div class="signin-page">
+            <slot name="SignIn/message"></slot>
+            <div class="signin-form">
+                <div class="signin-form__row">
+                    <div class="signin-form__label">
+                        <slot name="SignIn/username-label"></slot>
+                    </div>
+                    <div class="signin-profile__input">
+                        <slot name="SignIn/username-input"></slot>
+                    </div>
+                </div>
+                <div class="signin-form__row">
+                    <div class="signin-form__label">
+                        <slot name="SignIn/password-label"></slot>
+                    </div>
+                    <div class="signin-profile__input">
+                        <slot name="SignIn/password-input"></slot>
+                    </div>
+                </div>
+            </div>
+            <div class="signin-form__toolbar">
+                <label>
+                    <slot name="SignIn/rememberme-checkbox"></slot>
+                    <slot name="SignIn/rememberme-label"></slot>
+                </label>
+            </div>
+            <div class="signin-form__toolbar">
+                <slot name="SignIn/submit-button"></slot>
+                <slot name="SignIn/forgot-button"></slot>
+                <slot name="SignIn/create-Admin-User-button"></slot>
+            </div>
+        </div>
+        <slot name="SignIn/signin-element"></slot>
+    </template>
+</template>

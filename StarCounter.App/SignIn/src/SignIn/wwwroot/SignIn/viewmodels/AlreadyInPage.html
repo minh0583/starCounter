@@ -1,0 +1,20 @@
+﻿<template>
+    <template is="dom-bind">
+        <p slot="SignIn/already-signed-in-message" class="alert alert-success">You are signed in as <a href="/signin/profile"><b>{{model.Username}}</b></a>!</p>
+        <button slot="SignIn/sign-out-button" class="btn btn-primary" on-click="signOut">Sign out</button>
+    </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template.signOut = function () {
+                document.querySelector("puppet-client").network.changeState("/signin/partial/signout");
+            };
+        })();
+    </script>
+    <template is="declarative-shadow-dom">
+        <slot name="SignIn/already-signed-in-message"></slot>
+        <slot name="SignIn/sign-out-button"></slot>
+    </template>
+</template>

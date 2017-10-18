@@ -1,0 +1,9 @@
+﻿<link rel="import" href="/sys/bootstrap.html">
+<template>
+    <template is="dom-bind">
+        <starcounter-include slot="useradmin/current-page" partial="{{model.CurrentPage}}"></starcounter-include>
+    </template>
+    <template is="declarative-shadow-dom">
+        <slot name="useradmin/current-page"></slot>
+    </template>
+</template>

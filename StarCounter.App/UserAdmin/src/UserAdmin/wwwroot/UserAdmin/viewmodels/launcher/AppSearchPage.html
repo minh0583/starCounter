@@ -1,0 +1,33 @@
+﻿<template>
+    <template is="dom-bind">
+        <template is="dom-if" if="{{model.Users.length}}">
+            <h1 slot="useradmin/search-users-headline">Users</h1>
+            <div slot="useradmin/search-users">
+                <template is="dom-repeat" items="{{model.Users}}">
+                    <li>
+                        <a href="{{item.Uri}}">
+                            <span>{{item.Username}}</span>
+                            (<span>{{item.FullName}}</span>)
+                        </a>
+                    </li>
+                </template>
+            </div>
+        </template>
+        <template is="dom-if" if="{{model.Groups.length}}">
+            <h1 slot="useradmin/search-usergroups-headline">Usergroups</h1>
+            <div slot="useradmin/search-usergroups">
+                <template is="dom-repeat" items="{{model.Groups}}">
+                    <li>
+                        <a href="{{item.Uri}}">{{item.Name}}</a>
+                    </li>
+                </template>
+            </div>
+        </template>
+    </template>
+    <template is="declarative-shadow-dom">
+        <slot name="useradmin/search-users-headline"></slot>
+        <slot name="useradmin/search-users"></slot>
+        <slot name="useradmin/search-usergroups-headline"></slot>
+        <slot name="useradmin/search-usergroups"></slot>
+    </template>
+</template>

@@ -1,0 +1,24 @@
+<link rel="import" href="/sys/puppet-redirect/puppet-redirect.html">
+
+<template>
+    <template is="dom-bind">
+
+        <template is="dom-if" if="{{model.IsAdministrator}}">
+            <li slot="useradmin/app-menu-system-user">
+                <a href="/UserAdmin/admin/users">
+                    <div title="System Users" class="the-icons span3"><i class="glyphicon glyphicon-user"></i> <span class="i-name">System Users</span></div>
+                </a>
+            </li>
+            <li slot="useradmin/app-menu-system-user-groups">
+                <a href="/UserAdmin/admin/usergroups">
+                    <div title="System Users" class="the-icons span3"><i class="glyphicon glyphicon-user"></i> <span class="i-name">System User Groups</span></div>
+                </a>
+            </li>
+        </template>
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+    </template>
+    <template is="declarative-shadow-dom">
+        <slot name="useradmin/app-menu-system-user"></slot>
+        <slot name="useradmin/app-menu-system-user-groups"></slot>
+    </template>
+</template>

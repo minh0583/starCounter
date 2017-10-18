@@ -23,11 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignIn", "SignIn", "{D2CBCD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserAdmin", "UserAdmin", "{123C3FA2-8FC6-4817-BFB4-69275D3E46B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignIn", "SignIn-master\src\SignIn\SignIn.csproj", "{AD9637E2-BC66-48CF-AFEF-AAE2454413EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignIn", "SignIn\src\SignIn\SignIn.csproj", "{AD9637E2-BC66-48CF-AFEF-AAE2454413EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAdmin", "UserAdmin-master\src\UserAdmin\UserAdmin.csproj", "{EA683FF4-7931-4461-BA30-F33E3E815638}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAdmin", "UserAdmin\src\UserAdmin\UserAdmin.csproj", "{EA683FF4-7931-4461-BA30-F33E3E815638}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatter", "Chatter-master\src\Chatter\Chatter.csproj", "{791978EC-265C-4271-BDBC-B385FD49D8A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatter", "Chatter\src\Chatter\Chatter.csproj", "{791978EC-265C-4271-BDBC-B385FD49D8A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
