@@ -6,10 +6,12 @@
         <h2 class="chatter-group-subheading" slot="chatter/header">{{model.Name}}</h2>
         <a href="/chatter" class="btn btn-default btn-sm" slot="chatter/back">Go back</a>
         <div class="chatter-group-user" slot="chatter/user">
-            <template is="dom-if" if="{{model.UserKey}}">
-                Signed in as
-                <b>{{model.UserName$}}</b>
-            </template>
+            <h4>
+                <template is="dom-if" if="{{model.UserKey}}">
+                    Signed in as
+                    <a href="/signin/profile"><b>{{model.UserName$}}</b></a>
+                </template>
+            </h4>
             <template is="dom-if" if="{{!model.UserKey}}">
                 You are not signed in, you messages will be send anonymously
             </template>

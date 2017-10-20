@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Api\CommitHooks.cs" />
     <Compile Include="Api\MainHandlers.cs" />
+    <Compile Include="Api\PartialHandlers.cs" />
     <Compile Include="Helpers\ChatMessageTextValidator.cs" />
     <Compile Include="Helpers\PageManager.cs" />
     <Compile Include="Program.cs" />
@@ -101,10 +102,17 @@
     <Compile Include="ViewModels\SystemUserPage.json.cs">
       <DependentUpon>SystemUserPage.json</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\UnauthorizedPage.json.cs">
+      <DependentUpon>UnauthorizedPage.json</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\Chatter\css\chatter.css" />
     <Content Include="wwwroot\Chatter\css\standalone.css" />
+    <None Include="wwwroot\Chatter\ViewModels\UnauthorizedPage.html" />
+    <TypedJSON Include="ViewModels\UnauthorizedPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <None Include="wwwroot\Chatter\elements\chatter-expander.html" />
     <Content Include="wwwroot\Chatter\images\chatter.png" />
     <Content Include="wwwroot\Chatter\ViewModels\AppIconPage.html" />

@@ -3,7 +3,7 @@
 
 <template>
     <template is="dom-bind">
-        <h1 class="chatter-lobby-heading" slot="chatter/header">Select or create chat room</h1>
+        <h3 class="chatter-lobby-heading" slot="chatter/header">Select or create chat room</h3>
         <input class="form-control" slot="chatter/new-group-name" value="{{model.NewGroupName$::input}}" on-keyup="onInputKeyup" placeholder="Chat room name" />
         <button class="btn btn-primary" slot="chatter/create-group" onmousedown="++this.value;" value="{{model.GoToNewGroup$::click}}">Create</button>
 

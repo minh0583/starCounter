@@ -17,6 +17,8 @@ namespace StarCounter.App.Service.SignIn
             action.Cancel();
 
             this.Submit++;
+
+            RedirectUrl = "/chatter";
         }
 
         void Handle(Input.RestoreClick action)

@@ -2,6 +2,7 @@
 using Simplified.Ring1;
 using Simplified.Ring2;
 using Simplified.Ring6;
+using StarCounter.App.Client.Chatter.ViewModels;
 
 namespace StarCounter.App.Client.Chatter
 {
@@ -76,7 +77,7 @@ namespace StarCounter.App.Client.Chatter
                 return Db.Scope<StandalonePage>(() =>
                 {
                     var master = (StandalonePage)Self.GET("/chatter/standalone");
-
+                    
                     master.CurrentPage = Self.GET("/chatter/partials/chatgroups");
 
                     return master;
@@ -93,6 +94,14 @@ namespace StarCounter.App.Client.Chatter
 
                     return master;
                 });
+            });
+
+            Handle.GET("/chatter/unauthorized?return_uri={?}", (string returnURL) =>
+            {
+                var master = (StandalonePage)Self.GET("/chatter/standalone");
+                master.ShowMenu = false;
+                master.CurrentPage = Self.GET<UnauthorizedPage>("/chatter/partial/unauthorized?return_uri=" + returnURL);
+                return master;
             });
 
             Handle.GET("/chatter/systemuser/{?}", (string SystemUserId) =>
