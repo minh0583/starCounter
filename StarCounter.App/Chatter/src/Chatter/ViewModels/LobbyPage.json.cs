@@ -1,6 +1,9 @@
 using Simplified.Ring1;
 using Starcounter;
 using Simplified.Ring6;
+using Simplified.Ring5;
+using Simplified.Ring3;
+using System;
 
 namespace StarCounter.App.Client.Chatter
 {
@@ -8,7 +11,64 @@ namespace StarCounter.App.Client.Chatter
     {
         public void RefreshData()
         {
-            ChatGroups = Db.SQL<ChatGroup>("SELECT g FROM Simplified.Ring6.ChatGroup g ORDER BY g.Name");
+            RefreshUser();
+            CreateOneToOneGroup();
+            ChatGroups = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g ORDER BY g.Name");
+        }
+
+        private void CreateOneToOneGroup()
+        {
+            var users = Db.SQL<SystemUser>("SELECT u FROM Simplified.Ring3.SystemUser u");
+
+            foreach(var user in users)
+            {
+                if (UserName == "Anonymous" || UserName == user.Name)
+                    continue;
+
+                CreateGroup(user.Name);
+            }
+        }
+
+        private void CreateGroup(string name)
+        {
+            string groupName = string.Format("{0}-{1}", UserName, name);
+            var chatGroup = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name = ?", groupName).First;
+
+            if(chatGroup == null)
+            {
+                ChatGroup group = null;
+
+                Db.Transact(() =>
+                {
+                    group = new ChatGroup
+                    {
+                        Name = groupName
+                    };
+                });
+            }
+        }
+
+        public void RefreshUser()
+        {
+            var session = GetCurrentSystemUserSession();
+
+            if (session != null)
+            {
+                var user = session.Token.User;
+
+                UserKey = user.Key;
+                UserName = user.Username;
+            }
+            else
+            {
+                UserKey = null;
+                UserName = "Anonymous";
+            }
+        }
+
+        protected SystemUserSession GetCurrentSystemUserSession()
+        {
+            return Db.SQL<SystemUserSession>("SELECT o FROM Simplified.Ring5.SystemUserSession o WHERE o.SessionIdString = ?", Session.Current.SessionId).First;
         }
 
         void Handle(Input.GoToNewGroup Action)
@@ -66,6 +126,6 @@ namespace StarCounter.App.Client.Chatter
                 base.OnData();
                 Url = $"/chatter/chatgroup/{Key}";
             }
-        }
+        }       
     }
 }

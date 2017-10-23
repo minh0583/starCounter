@@ -2,7 +2,13 @@
 <link href="/Chatter/css/chatter.css" rel="stylesheet" />
 
 <template>
-    <template is="dom-bind">
+    <template is="dom-bind">        
+        <h6 class="chatter-lobby-heading" slot="chatter/header">
+            <template is="dom-if" if="{{model.UserKey}}">
+                Signed in as
+                <a href="/signin/profile"><b>{{model.UserName$}}</b></a>
+            </template>
+        </h6>
         <h3 class="chatter-lobby-heading" slot="chatter/header">Select or create chat room</h3>
         <input class="form-control" slot="chatter/new-group-name" value="{{model.NewGroupName$::input}}" on-keyup="onInputKeyup" placeholder="Chat room name" />
         <button class="btn btn-primary" slot="chatter/create-group" onmousedown="++this.value;" value="{{model.GoToNewGroup$::click}}">Create</button>
@@ -27,7 +33,7 @@
                     </tr>
                 </template>
             </tbody>
-        </table>
+        </table>  
 
         <link is="puppet-redirect" slot="chatter/redirect" history url$="{{model.RedirectUrl$}}" />
     </template>
