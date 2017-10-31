@@ -4,6 +4,7 @@ using Simplified.Ring6;
 using Simplified.Ring5;
 using Simplified.Ring3;
 using System;
+using System.Collections;
 
 namespace StarCounter.App.Client.Chatter
 {
@@ -13,7 +14,13 @@ namespace StarCounter.App.Client.Chatter
         {
             RefreshUser();
             CreateOneToOneGroup();
-            ChatGroups = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g ORDER BY g.Name");
+            GetTotalMessagesSent();
+            ChatGroups = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g ORDER BY g.Name");                        
+        }
+
+        private void GetTotalMessagesSent()
+        {
+            TotalMessagesSent = Db.SlowSQL<long>("SELECT COUNT(*) FROM Simplified.Ring6.ChatMessage m WHERE m.UserName = ?", UserName).First;
         }
 
         private void CreateOneToOneGroup()
@@ -32,9 +39,11 @@ namespace StarCounter.App.Client.Chatter
         private void CreateGroup(string name)
         {
             string groupName = string.Format("{0}-{1}", UserName, name);
-            var chatGroup = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name = ?", groupName).First;
+            string groupNameResever = string.Format("{0}-{1}", name, UserName);
+            var chatGroup = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name = ? OR g.Name = ?", groupName, groupNameResever).First;
+            //var chatGroup = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name LIKE ?", "%" + UserName + "%").First;
 
-            if(chatGroup == null)
+            if (chatGroup == null)
             {
                 ChatGroup group = null;
 
@@ -124,8 +133,35 @@ namespace StarCounter.App.Client.Chatter
             protected override void OnData()
             {
                 base.OnData();
-                Url = $"/chatter/chatgroup/{Key}";
+                var notificationCount = GetNotificationCount();
+
+                IsNotification = notificationCount > 0;
+                NotificationCount = notificationCount.ToString();
+
+                TotalMessages = GetTotalMessagesPerContact();
+
+                Url = $"/chatter/chatgroup/{Key}";                
             }
+
+            private long GetTotalMessagesPerContact()
+            {
+                return Db.SlowSQL<long>("SELECT count(*) FROM Simplified.Ring6.ChatGroup g INNER JOIN Simplified.Ring6.ChatMessage m ON g = m.\"Group\" where m.\"Group\" = ? ", Data).First;
+            }
+
+            private long GetNotificationCount()
+            {
+                DateTime lastUsed = DateTime.Now;
+
+                var systemUser = Db.SQL<SystemUserTokenKey>("SELECT o FROM Simplified.Ring5.SystemUserTokenKey o WHERE CAST(o.User AS Simplified.Ring3.SystemUser).UserName = ? ORDER BY LastUsed DESC FETCH ? OFFSET ?", ParentPage.UserName, 1, 2).First;
+
+                if (systemUser != null)
+                {
+                    lastUsed = systemUser.LastUsed.ToLocalTime();
+                }                                
+
+                return Db.SlowSQL<long>("SELECT count(g.Name) FROM Simplified.Ring6.ChatGroup g INNER JOIN Simplified.Ring6.ChatMessage m ON g = m.\"Group\" where m.\"Group\" = ? AND (g.Name LIKE '%" + ParentPage.UserName + "%'" + " OR g.Name not LIKE '%-%') AND m.UserName <> ? AND m.\"Date\" > ? GROUP BY g.Name",
+                    Data, ParentPage.UserName, lastUsed).First;                
+            }           
         }       
     }
 }

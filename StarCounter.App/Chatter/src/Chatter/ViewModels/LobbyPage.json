@@ -4,13 +4,17 @@
   "UserKey": "",
   "NewGroupName$": "",
   "GoToNewGroup$": 0,
-  "RedirectUrl$": "",
+  "TotalMessagesSent$": 0,
+  "RedirectUrl$": "",  
   "ChatGroups": [
     {
       "Name": "",
       "Key": "",
       "Delete$": 0,
-      "Url": ""
+      "Url": "",   
+      "IsNotification": false,
+      "NotificationCount$": "",
+      "TotalMessages$": 0
     }
   ]  
 }

@@ -9,11 +9,28 @@
                     <li class="chatter-body__nav-menu-il">
                         <a class="chatter-body__nav-menu-a" href="/chatter">Home</a>
                     </li>
+                    <li class="chatter-body__nav-menu-il">
+                        <a class="chatter-body__nav-menu-a" href="/signin/profile">Profile</a>
+                    </li>
+                    <li class="chatter-body__nav-menu-il">
+                        <a class="chatter-body__nav-menu-a" href="/signin/partial/usersignout">Sign out</a>
+                    </li>
                 </ul>
             </nav>
         </template>
+        <h3>CHATTER APPLICATION</h3>
         <div class="chatter-body__starcounter-include">
             <starcounter-include partial="{{model.CurrentPage}}"></starcounter-include>
         </div>
     </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template.signOut = function () {
+                document.querySelector("puppet-client").network.changeState("/signin/partial/usersignout");
+            };
+        })();
+    </script>
 </template>

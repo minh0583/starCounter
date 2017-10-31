@@ -15,7 +15,7 @@ namespace StarCounter.App.Client.Chatter.Api
             Handle.GET("/chatter/partial/unauthorized?return_uri={?}", (string returnUri) =>
             {
                 return new UnauthorizedPage();
-            });
+            });            
         }
     }
 }

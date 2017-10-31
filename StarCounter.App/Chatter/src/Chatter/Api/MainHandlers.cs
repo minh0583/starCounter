@@ -3,6 +3,7 @@ using Simplified.Ring1;
 using Simplified.Ring2;
 using Simplified.Ring6;
 using StarCounter.App.Client.Chatter.ViewModels;
+using Simplified.Ring3;
 
 namespace StarCounter.App.Client.Chatter
 {
@@ -114,7 +115,7 @@ namespace StarCounter.App.Client.Chatter
 
                     return master;
                 });
-            });
+            });           
 
             RegisterLauncher();
             RegisterPartials();
@@ -252,8 +253,8 @@ namespace StarCounter.App.Client.Chatter
                 page.RefreshData(textRelation);
                 return page;
             });
-            #endregion
-        }
+            #endregion            
+    }
 
         protected void RegisterMap()
         {

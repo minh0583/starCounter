@@ -3,38 +3,48 @@
 
 <template>
     <template is="dom-bind">        
-        <h6 class="chatter-lobby-heading" slot="chatter/header">
+        <h8 class="chatter-lobby-heading" slot="chatter/header">
             <template is="dom-if" if="{{model.UserKey}}">
                 Signed in as
                 <a href="/signin/profile"><b>{{model.UserName$}}</b></a>
+                <br>
+                Total messages sent: <span class="label label-success"><b>{{model.TotalMessagesSent$}}</b></span>
             </template>
-        </h6>
-        <h3 class="chatter-lobby-heading" slot="chatter/header">Select or create chat room</h3>
-        <input class="form-control" slot="chatter/new-group-name" value="{{model.NewGroupName$::input}}" on-keyup="onInputKeyup" placeholder="Chat room name" />
-        <button class="btn btn-primary" slot="chatter/create-group" onmousedown="++this.value;" value="{{model.GoToNewGroup$::click}}">Create</button>
-
-        <table class="chatter-lobby-table table table-bordered" slot="chatter/groups">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <template is="dom-repeat" items="{{model.ChatGroups}}">
+        </h8>
+        <template is="dom-if" if="{{model.UserKey}}">
+            <h3 class="chatter-lobby-heading" slot="chatter/header">Select or create chat room</h3>
+            <input class="form-control" slot="chatter/new-group-name" value="{{model.NewGroupName$::input}}" on-keyup="onInputKeyup" placeholder="Chat room name" />
+            <button class="btn btn-primary" slot="chatter/create-group" onmousedown="++this.value;" value="{{model.GoToNewGroup$::click}}">Create</button>
+            <table class="chatter-lobby-table table table-bordered" slot="chatter/groups">
+                <thead>
                     <tr>
-                        <td class="chatter-lobby-table__cell">
-                            <span>{{item.Name}}</span>
-                        </td>
-                        <td>
-                            <a href="{{item.Url}}" class="btn btn-primary btn-sm">Enter</a>
-                            <button class="btn btn-sm btn-default" type="button" onclick="++this.value;" value="{{item.Delete$::click}}">Delete</button>
-                        </td>
+                        <th>Name</th>                        
+                        <th>Total messages</th>
+                        <th></th>
                     </tr>
-                </template>
-            </tbody>
-        </table>  
+                </thead>
+                <tbody>
 
+                    <template is="dom-repeat" items="{{model.ChatGroups}}">
+                        <tr>
+                            <td class="chatter-lobby-table__cell">
+                                <span>{{item.Name}}</span>
+                                <template is="dom-if" if="{{item.IsNotification}}">
+                                    <span class="label label-warning"><b>{{ item.NotificationCount$}}</b></span>
+                                </template>
+                            </td>                    
+                            <td class="chatter-lobby-table__cell">
+                                <span class="label label-success"><b>{{ item.TotalMessages$}}</b></span>
+                            </td>
+                            <td class="chatter-lobby-table__cell">
+                                <a href="{{item.Url}}" class="btn btn-primary btn-sm">Enter</a>
+                                <button class="btn btn-sm btn-default" type="button" onclick="++this.value;" value="{{item.Delete$::click}}">Delete</button>
+                            </td>                            
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
         <link is="puppet-redirect" slot="chatter/redirect" history url$="{{model.RedirectUrl$}}" />
     </template>
     <script>

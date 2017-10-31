@@ -60,6 +60,7 @@ namespace StarCounter.App.Service.SignIn.Api
             Handle.GET("/signin/partial/user/image", () => new UserImagePage());
             Handle.GET("/signin/partial/user/image/{?}", (string objectId) => new Json(), internalOption);
             Handle.GET("/signin/partial/signout", HandleSignOut, internalOption);
+            //Handle.GET("/signin/partial/usersignout", HandlePartialSignOut, internalOption);
         }
 
         protected void HandleSignIn(string Username, string Password, string RememberMe)
@@ -115,5 +116,21 @@ namespace StarCounter.App.Service.SignIn.Api
 
             return 200;
         }
+
+        //protected Response HandlePartialSignOut()
+        //{
+        //    //SystemUser.SignOutSystemUser();
+        //    //cookieHelper.ClearAuthCookie();
+
+        //    //MasterPage master = mainHandlers.GetMaster();
+        //    //string message = "Invalid username or password!";
+
+        //    //SignInFormPage page = master.Partial as SignInFormPage;
+        //    //page.Message = message;
+
+        //    HandleSignIn("admin", "admin", string.Empty);
+
+        //    return 200;
+        //}
     }
 }
