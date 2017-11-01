@@ -15,7 +15,23 @@ namespace StarCounter.App.Client.Chatter
             RefreshUser();
             CreateOneToOneGroup();
             GetTotalMessagesSent();
-            ChatGroups = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g ORDER BY g.Name");                        
+            //var chatGroups = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g ORDER BY g.Name");
+            var chatGroups = Db.SQL<ChatGroup>($"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name LIKE ? OR g.Name NOT LIKE ? ORDER BY g.Name", "%" + UserName + "%", "%-%");
+
+            foreach (var item in chatGroups)
+            {
+                //if usser
+                //item.Name = $"<span class='user'>{item.Name}</span>";
+                if(item.Name.Contains(UserName))
+                {
+
+                    //var disName = item.Name.Remove(0, item.Name.IndexOf('-') + 1);
+                    var disName = item.Name.Replace(UserName, string.Empty).Replace("-", string.Empty);
+                    item.Name = disName;
+                }
+            }
+
+            ChatGroups = chatGroups;
         }
 
         private void GetTotalMessagesSent()
@@ -141,6 +157,10 @@ namespace StarCounter.App.Client.Chatter
                 var totalMessagesInRoom = GetTotalMessagesInRoom();
                 IsMessage = totalMessagesInRoom > 0;
                 TotalMessages = totalMessagesInRoom.ToString();
+
+                //var chatGroup = Db.SQL<ChatGroup>($"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Key = ? AND g.Name NOT LIKE ?", Key, "%" + ParentPage.UserName + "%").First;
+                //var chatGroup = Db.SQL<ChatGroup>($"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name LIKE ? AND g.Key = ?", "%" + ParentPage.UserName + "%", Key).First;
+                //IsGroup = chatGroup != null;
 
                 Url = $"/chatter/chatgroup/{Key}";                
             }

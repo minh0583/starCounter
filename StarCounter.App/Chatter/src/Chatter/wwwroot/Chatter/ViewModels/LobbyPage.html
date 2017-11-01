@@ -1,5 +1,6 @@
 ﻿<link rel="import" href="/sys/puppet-redirect/puppet-redirect.html" />
 <link href="/Chatter/css/chatter.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <template>
     <template is="dom-bind">        
@@ -30,14 +31,16 @@
                                 <template is="dom-if" if="{{item.IsMessage}}">
                                     <span class="label label-default"><b>{{ item.TotalMessages$}}</b></span>
                                 </template>
-                                <span>{{item.Name}}</span>
+                                <span class='glyphicon glyphicon-user'></span>{{ item.Name }}
                                 <template is="dom-if" if="{{item.IsNotification}}">
                                     <span class="label label-warning"><b>{{ item.NotificationCount$}}</b></span>
                                 </template>
                             </td>                    
                             <td class="chatter-lobby-table__cell">
                                 <a href="{{item.Url}}" class="btn btn-primary btn-sm">Enter</a>
-                                <button class="btn btn-sm btn-default" type="button" onclick="++this.value;" value="{{item.Delete$::click}}">Delete</button>
+                                <template is="dom-if" if="{{item.IsGroup}}">
+                                    <button class="btn btn-sm btn-default" type="button" onclick="++this.value;" value="{{item.Delete$::click}}">Delete</button>
+                                </template>
                             </td>                            
                         </tr>
                     </template>

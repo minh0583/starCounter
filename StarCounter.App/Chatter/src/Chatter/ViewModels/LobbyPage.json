@@ -9,13 +9,14 @@
   "ChatGroups": [
     {
       "Name": "",
-      "Key": "",
+      "Key": "",      
       "Delete$": 0,
-      "Url": "",   
+      "Url": "",
       "IsNotification": false,
       "NotificationCount$": "",
       "IsMessage": false,
-      "TotalMessages$": ""
+      "TotalMessages$": "",
+      "IsGroup": true
     }
   ]  
 }
