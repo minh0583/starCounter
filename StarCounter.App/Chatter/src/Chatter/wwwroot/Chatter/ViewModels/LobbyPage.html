@@ -18,8 +18,7 @@
             <table class="chatter-lobby-table table table-bordered" slot="chatter/groups">
                 <thead>
                     <tr>
-                        <th>Name</th>                        
-                        <th>Total messages</th>
+                        <th>Name</th>                                                
                         <th></th>
                     </tr>
                 </thead>
@@ -27,15 +26,15 @@
 
                     <template is="dom-repeat" items="{{model.ChatGroups}}">
                         <tr>
-                            <td class="chatter-lobby-table__cell">
+                            <td class="chatter-lobby-table__cell">                                
+                                <template is="dom-if" if="{{item.IsMessage}}">
+                                    <span class="label label-default"><b>{{ item.TotalMessages$}}</b></span>
+                                </template>
                                 <span>{{item.Name}}</span>
                                 <template is="dom-if" if="{{item.IsNotification}}">
                                     <span class="label label-warning"><b>{{ item.NotificationCount$}}</b></span>
                                 </template>
                             </td>                    
-                            <td class="chatter-lobby-table__cell">
-                                <span class="label label-success"><b>{{ item.TotalMessages$}}</b></span>
-                            </td>
                             <td class="chatter-lobby-table__cell">
                                 <a href="{{item.Url}}" class="btn btn-primary btn-sm">Enter</a>
                                 <button class="btn btn-sm btn-default" type="button" onclick="++this.value;" value="{{item.Delete$::click}}">Delete</button>

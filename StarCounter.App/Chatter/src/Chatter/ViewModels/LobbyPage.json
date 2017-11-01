@@ -14,7 +14,8 @@
       "Url": "",   
       "IsNotification": false,
       "NotificationCount$": "",
-      "TotalMessages$": 0
+      "IsMessage": false,
+      "TotalMessages$": ""
     }
   ]  
 }

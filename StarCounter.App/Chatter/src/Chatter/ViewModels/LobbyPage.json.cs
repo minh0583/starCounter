@@ -138,12 +138,14 @@ namespace StarCounter.App.Client.Chatter
                 IsNotification = notificationCount > 0;
                 NotificationCount = notificationCount.ToString();
 
-                TotalMessages = GetTotalMessagesPerContact();
+                var totalMessagesInRoom = GetTotalMessagesInRoom();
+                IsMessage = totalMessagesInRoom > 0;
+                TotalMessages = totalMessagesInRoom.ToString();
 
                 Url = $"/chatter/chatgroup/{Key}";                
             }
 
-            private long GetTotalMessagesPerContact()
+            private long GetTotalMessagesInRoom()
             {
                 return Db.SlowSQL<long>("SELECT count(*) FROM Simplified.Ring6.ChatGroup g INNER JOIN Simplified.Ring6.ChatMessage m ON g = m.\"Group\" where m.\"Group\" = ? ", Data).First;
             }
