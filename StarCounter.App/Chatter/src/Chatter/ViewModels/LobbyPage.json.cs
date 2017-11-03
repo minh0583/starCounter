@@ -24,10 +24,9 @@ namespace StarCounter.App.Client.Chatter
                 //item.Name = $"<span class='user'>{item.Name}</span>";
                 if(item.Name.Contains(UserName))
                 {
-
-                    //var disName = item.Name.Remove(0, item.Name.IndexOf('-') + 1);
                     var disName = item.Name.Replace(UserName, string.Empty).Replace("-", string.Empty);
-                    item.Name = disName;
+                    item.Description = item.Name;
+                    item.Name = disName;                    
                 }
             }
 
@@ -157,10 +156,10 @@ namespace StarCounter.App.Client.Chatter
                 var totalMessagesInRoom = GetTotalMessagesInRoom();
                 IsMessage = totalMessagesInRoom > 0;
                 TotalMessages = totalMessagesInRoom.ToString();
-
-                //var chatGroup = Db.SQL<ChatGroup>($"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Key = ? AND g.Name NOT LIKE ?", Key, "%" + ParentPage.UserName + "%").First;
-                //var chatGroup = Db.SQL<ChatGroup>($"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name LIKE ? AND g.Key = ?", "%" + ParentPage.UserName + "%", Key).First;
-                //IsGroup = chatGroup != null;
+                
+                var userChatGroup = Db.SQL<ChatGroup>("SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Key = ? AND g.Description LIKE ?", Key, "%-%").First;
+                IsGroup = userChatGroup == null;
+                IsUserGroup = !IsGroup;
 
                 Url = $"/chatter/chatgroup/{Key}";                
             }

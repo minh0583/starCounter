@@ -16,6 +16,7 @@
       "NotificationCount$": "",
       "IsMessage": false,
       "TotalMessages$": "",
+      "IsUserGroup": false,
       "IsGroup": true
     }
   ]  

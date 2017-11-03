@@ -31,7 +31,13 @@
                                 <template is="dom-if" if="{{item.IsMessage}}">
                                     <span class="label label-default"><b>{{ item.TotalMessages$}}</b></span>
                                 </template>
-                                <span class='glyphicon glyphicon-user'></span>{{ item.Name }}
+                                <template is="dom-if" if="{{item.IsUserGroup}}">
+                                    <span class='glyphicon glyphicon-user'></span>
+                                </template>
+                                <template is="dom-if" if="{{item.IsGroup}}">
+                                    <span class='glyphicon glyphicon-home'></span>
+                                </template>
+                                {{ item.Name }}
                                 <template is="dom-if" if="{{item.IsNotification}}">
                                     <span class="label label-warning"><b>{{ item.NotificationCount$}}</b></span>
                                 </template>
