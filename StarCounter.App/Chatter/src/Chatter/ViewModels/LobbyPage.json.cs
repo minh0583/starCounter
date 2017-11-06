@@ -13,7 +13,7 @@ namespace StarCounter.App.Client.Chatter
         public void RefreshData()
         {
             RefreshUser();
-            CreateOneToOneGroup();
+            //CreateOneToOneGroup();
             GetTotalMessagesSent();
             //var chatGroups = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g ORDER BY g.Name");
             var chatGroups = Db.SQL<ChatGroup>($"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name LIKE ? OR g.Name NOT LIKE ? ORDER BY g.Name", "%" + UserName + "%", "%-%");
