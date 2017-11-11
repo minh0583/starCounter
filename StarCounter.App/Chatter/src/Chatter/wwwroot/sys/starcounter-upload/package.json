@@ -1,0 +1,19 @@
+{
+    "name": "starcounter-upload",
+    "version": "1.0.0",
+    "description": "<starcounter-upload> is a Starcounter Polymer element to upload files over WebSocket",
+    "main": "starcounter-upload.html",
+    "directories": { },
+    "dependencies": { },
+    "devDependencies": {
+        "grunt-bump": "^0.7.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Starcounter/starcounter-upload"
+    },
+    "bugs": {
+        "url": "https://github.com/Starcounter/starcounter-upload/issues"
+    },
+    "license": "MIT"
+}

@@ -1,0 +1,28 @@
+{
+    "name": "starcounter-upload",
+    "version": "1.0.0",
+    "homepage": "https://github.com/Starcounter/starcounter-upload",
+    "authors": [
+        "Konstantin <const.miyang@gmail.com>"
+    ],
+    "description": "Starcounter Polymer element to upload files over WebSocket",
+    "main": "starcounter-upload.html",
+    "moduleType": [ ],
+    "keywords": [
+        "polymer",
+        "upload",
+        "websocket"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "../",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "polymer": "polymer#1.9 - 2"
+    }
+}

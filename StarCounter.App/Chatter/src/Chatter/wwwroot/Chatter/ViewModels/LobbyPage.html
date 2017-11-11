@@ -1,9 +1,21 @@
-﻿<link rel="import" href="/sys/puppet-redirect/puppet-redirect.html" />
+﻿<link rel="import" href="/sys/paper-radio-group/paper-radio-group.html" />
+<link rel="import" href="/sys/paper-radio-button/paper-radio-button.html" />
+<link rel="import" href="/sys/puppet-redirect/puppet-redirect.html" />
 <link href="/Chatter/css/chatter.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <template>
-    <template is="dom-bind">        
+    <template is="dom-bind">           
+
+        <div class="chatter-lobby-heading" slot="chatter/header">
+            <paper-radio-group selected="{{model.SelectedStatus$}}">
+                <template is="dom-repeat" items="{{model.Status}}">
+                    <paper-radio-button test-value$="{{item.Label}}" name="{{item.Label}}">{{item.Label}}</paper-radio-button>
+                </template>
+            </paper-radio-group>
+        </div>   
+
+        <div slot="kitchensink/radio-reaction-label" class="kitchensink-test-pet-reaction-label">{{model.StatusReaction}}</div>
         <h8 class="chatter-lobby-heading" slot="chatter/header">
             <template is="dom-if" if="{{model.UserKey}}">
                 Signed in as
@@ -11,7 +23,7 @@
                 <br>
                 Total messages sent: <span class="label label-success"><b>{{model.TotalMessagesSent$}}</b></span>
             </template>
-        </h8>
+        </h8>        
         <template is="dom-if" if="{{model.UserKey}}">
             <h3 class="chatter-lobby-heading" slot="chatter/header">Select or create chat room</h3>
             <input class="form-control" slot="chatter/new-group-name" value="{{model.NewGroupName$::input}}" on-keyup="onInputKeyup" placeholder="Chat room name" />
@@ -27,11 +39,8 @@
 
                     <template is="dom-repeat" items="{{model.ChatGroups}}">
                         <tr>
-                            <td class="chatter-lobby-table__cell">                                
-                                <template is="dom-if" if="{{item.IsMessage}}">
-                                    <span class="label label-default"><b>{{ item.TotalMessages$}}</b></span>
-                                </template>
-                                <template is="dom-if" if="{{item.IsUserGroup}}">
+                            <td class="chatter-lobby-table__cell">                                                                
+                                <template is="dom-if" if="{{!item.IsGroup}}">
                                     <span class='glyphicon glyphicon-user'></span>
                                 </template>
                                 <template is="dom-if" if="{{item.IsGroup}}">

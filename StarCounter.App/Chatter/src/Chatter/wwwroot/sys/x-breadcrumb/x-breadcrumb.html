@@ -1,0 +1,53 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="x-breadcrumb">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            .breadcrumbs {
+                -webkit-column-count: 5;
+                -moz-column-count: 5;
+                column-count: 5;
+                display: flex;
+            }
+
+            .breadcrumbs[orientation="vertical"] {
+                -webkit-column-count: 1;
+                -moz-column-count: 1;
+                column-count: 1;
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+        <div>
+            <div class="wrapper">
+                <div class="breadcrumbs" orientation$="[[orientation]]">
+                    <slot></slot>
+                </ul>
+            </div>
+        </div>
+    </template>
+    <script>
+        (function () {
+            'use strict';
+
+            Polymer({
+                is: 'x-breadcrumb',
+
+                properties: {
+                    orientation: {
+                        type: String,
+                        value: '',
+                        notify: true
+                    }
+                },
+                value: function () {
+
+                }
+            });
+        })();
+    </script>
+</dom-module>

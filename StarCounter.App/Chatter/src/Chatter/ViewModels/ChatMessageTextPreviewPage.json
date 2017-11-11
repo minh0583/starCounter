@@ -1,4 +1,6 @@
 {
     "Html": "/Chatter/ViewModels/ChatMessageTextPreviewPage.html",
-    "Text":  ""
+    "Text": "",
+    "Delete$": 0,
+    "IsDeleted": false
 }

@@ -1,0 +1,15 @@
+{
+    "author": {
+        "name": "Florian Roy"
+    },
+    "description": "Pikaday decorator with polymer",
+    "devDependencies": {
+        "web-component-tester": "~3.*"
+    },
+    "name": "pikaday-decorator",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com:display-interactive/pikaday-decorator.git"
+    },
+    "version": "0.8.0"
+}

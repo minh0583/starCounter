@@ -1,0 +1,80 @@
+<!--
+Copyright 2014 Smörgåsbord Development.
+Update to Polymer 1.0 by carlos araya
+version: 1.0.1
+-->
+<link rel="import" href="../polymer/polymer.html">
+<!--
+  if we're already using bower for everything, why not use it for highlightjs too
+  Added highlight.js as a bower dependency
+-->
+<script src="../marked/lib/marked.js"></script>
+<script src="../highlightjs/highlight.pack.min.js"></script>
+
+<dom-module id="juicy-markdown">
+  <!--
+    Styles are moved outside templates in 1.0
+  -->
+  <style>
+    :host { overflow: auto; }
+
+    #preview { height: 100%; width: 100%; }
+
+    img { max-width:100%; }
+  </style>
+  <template>
+    <!-- New way to do template if tags -->
+    <template is="dom-if" if="{{ghcss}}" restamp>
+        <link rel="stylesheet" type="text/css" href="http://juicy.github.io/github-markdown-css/github-markdown.css">
+    </template>
+    <link rel="stylesheet" href="../highlightjs/styles/default.css">
+    <!-- TODO: try to remove this layer -->
+    <span id="preview" class="markdown-body"></span>
+    </template>
+</dom-module>
+<script>
+  'use strict';
+  Polymer({
+    is: 'juicy-markdown',
+    properties: {
+      ghcss: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      options: {
+        type: Object,
+        value: function () {
+          return {};
+        }
+      },
+      value: {
+        type: String,
+        value: '',
+        notify: true,
+        observer: 'valueChanged'
+      }
+    },
+    created: function () {
+      this.options = {
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: true,
+        pedantic: true,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false,
+        highlight: function (code) {
+          return hljs.highlightAuto(code).value;
+        }
+      };
+    },
+    valueChanged: function (newValue, oldValue) {
+      this.parseText(newValue);
+    },
+    parseText: function (text) {
+      this.$.preview.innerHTML = marked(text ? text : "", this.options);
+    }
+  });
+</script>

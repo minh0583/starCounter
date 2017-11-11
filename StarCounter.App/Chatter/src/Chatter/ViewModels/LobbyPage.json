@@ -5,19 +5,25 @@
   "NewGroupName$": "",
   "GoToNewGroup$": 0,
   "TotalMessagesSent$": 0,
-  "RedirectUrl$": "",  
+  "RedirectUrl$": "",
   "ChatGroups": [
     {
       "Name": "",
-      "Key": "",      
+      "Key": "",
       "Delete$": 0,
       "Url": "",
       "IsNotification": false,
       "NotificationCount$": "",
       "IsMessage": false,
       "TotalMessages$": "",
-      "IsUserGroup": false,
       "IsGroup": true
     }
-  ]  
+  ],
+  "Status": [
+    { "Label": "" }
+  ],
+
+  "SelectedStatus$": "",
+
+  "StatusReaction": ""  
 }

@@ -1,5 +1,10 @@
 ﻿<template>
     <template is="dom-bind">
-        <div>{{model.Text}}</div>
+        <div>
+            {{model.Text}}
+            <template is="dom-if" if="{{!model.IsDeleted}}">
+                <button class="btn btn-xs btn-default " type="button" onclick="++this.value;" value="{{model.Delete$::click}}">Delete</button>
+            </template>            
+        </div>        
     </template>
 </template>

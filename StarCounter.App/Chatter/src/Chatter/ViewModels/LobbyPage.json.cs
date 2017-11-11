@@ -9,19 +9,19 @@ using System.Collections;
 namespace StarCounter.App.Client.Chatter
 {
     partial class LobbyPage : Json
-    {
+    {        
         public void RefreshData()
         {
             RefreshUser();
+
+            LoadUserStatus();
             //CreateOneToOneGroup();
             GetTotalMessagesSent();
-            //var chatGroups = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g ORDER BY g.Name");
+                        
             var chatGroups = Db.SQL<ChatGroup>($"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name LIKE ? OR g.Name NOT LIKE ? ORDER BY g.Name", "%" + UserName + "%", "%-%");
 
             foreach (var item in chatGroups)
-            {
-                //if usser
-                //item.Name = $"<span class='user'>{item.Name}</span>";
+            {                
                 if(item.Name.Contains(UserName))
                 {
                     var disName = item.Name.Replace(UserName, string.Empty).Replace("-", string.Empty);
@@ -55,8 +55,7 @@ namespace StarCounter.App.Client.Chatter
         {
             string groupName = string.Format("{0}-{1}", UserName, name);
             string groupNameResever = string.Format("{0}-{1}", name, UserName);
-            var chatGroup = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name = ? OR g.Name = ?", groupName, groupNameResever).First;
-            //var chatGroup = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name LIKE ?", "%" + UserName + "%").First;
+            var chatGroup = Db.SQL<ChatGroup>(@"SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Name = ? OR g.Name = ?", groupName, groupNameResever).First;            
 
             if (chatGroup == null)
             {
@@ -158,8 +157,7 @@ namespace StarCounter.App.Client.Chatter
                 TotalMessages = totalMessagesInRoom.ToString();
                 
                 var userChatGroup = Db.SQL<ChatGroup>("SELECT g FROM Simplified.Ring6.ChatGroup g WHERE g.Key = ? AND g.Description LIKE ?", Key, "%-%").First;
-                IsGroup = userChatGroup == null;
-                IsUserGroup = !IsGroup;
+                IsGroup = userChatGroup == null;                
 
                 Url = $"/chatter/chatgroup/{Key}";                
             }
@@ -183,6 +181,45 @@ namespace StarCounter.App.Client.Chatter
                 return Db.SlowSQL<long>("SELECT count(g.Name) FROM Simplified.Ring6.ChatGroup g INNER JOIN Simplified.Ring6.ChatMessage m ON g = m.\"Group\" where m.\"Group\" = ? AND (g.Name LIKE '%" + ParentPage.UserName + "%'" + " OR g.Name not LIKE '%-%') AND m.UserName <> ? AND m.\"Date\" > ? GROUP BY g.Name",
                     Data, ParentPage.UserName, lastUsed).First;                
             }           
-        }       
+        }
+
+        private void LoadUserStatus()
+        {
+            StatusElementJson pet;
+            pet = this.Status.Add();
+            pet.Label = "Available";
+
+            pet = this.Status.Add();
+            pet.Label = "Away";
+
+            pet = this.Status.Add();
+            pet.Label = "Busy";
+
+            var session = GetCurrentSystemUserSession();
+            this.SelectedStatus = (session == null || string.IsNullOrEmpty(session.Token.User.Description)) ? "Available" : session.Token.User.Description;
+        }
+
+        static LobbyPage()
+        {
+            DefaultTemplate.StatusReaction.Bind = nameof(StatusReaction);                        
+        }
+
+        public string StatusReaction
+        {            
+            get
+            {
+                Db.Transact(() =>
+                {
+                    var session = GetCurrentSystemUserSession();
+                    if(session != null)
+                    {
+                        var user = Db.SQL<SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.UserName = ?", session.Token.User.Username).First;
+                        user.Description = SelectedStatus;
+                    }                    
+                });
+
+                return string.Empty;              
+            }
+        }
     }
 }

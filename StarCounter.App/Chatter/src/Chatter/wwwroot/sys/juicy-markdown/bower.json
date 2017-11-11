@@ -1,0 +1,32 @@
+{
+  "name": "juicy-markdown",
+  "version": "1.0.1",
+  "homepage": "https://github.com/Juicy/juicy-markdown",
+  "authors": [
+    "andwah <anders.wahlgren@societyobjects.com>",
+    "Tomek Wytrebowicz <tomalecpub@gmail.com>"
+  ],
+  "description": "Polymer Element with GitHub Flavored Markdown (GFM) viewer",
+  "keywords": [
+    "polymer",
+    "web-components",
+    "juicy",
+    "markdown"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "Gruntfile.js",
+    "tests",
+    "index.html",
+    "preview.png"
+  ],
+  "dependencies": {
+    "polymer": "polymer/polymer#^1.0.0",
+    "marked": "^0.3.2",
+    "github-markdown-css": "^0.2.0",
+    "highlightjs": "~8.7.0"
+  }
+}

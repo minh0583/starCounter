@@ -1,0 +1,166 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="stylesheet" href="../pikaday/css/pikaday.css">
+<script src="../momentjs/moment.js"></script>
+<script src="../pikaday/pikaday.js"></script>
+
+<dom-module id="pikaday-decorator">
+    <template>
+        <slot></slot>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: 'pikaday-decorator',
+
+        properties: {
+            /**
+             * Node witch trigger the display of the calendar
+             */
+            triggerSelector: {
+                type: String,
+                value: '[pikaday-decorator-trigger]'
+            },
+
+            /**
+             * Default locale
+             */
+            locale: {
+                type: String,
+                value: 'en'
+            },
+
+            /**
+             * Date format
+             */
+            format: {
+                type: String,
+                value: 'YYYY-MM-DD'
+            },
+
+            /**
+             * For options
+             * @see https://github.com/dbushell/Pikaday#user-content-configuration
+             */
+            position: {
+                type: String,
+                value: 'bottom left'
+            },
+            reposition:  {
+                type: Boolean,
+                value: true
+            },
+            /**
+             * Use selector instead of DOMElement directly
+             */
+            container: {
+                type: String,
+                value: undefined
+            },
+
+            defaultDate: {
+                type: String,
+                value: undefined
+            },
+            setDefaultDate: {
+                type: Boolean,
+                value: false
+            },
+            firstDay: {
+                type: Number,
+                value: 0
+            },
+            minDate: {
+                type: String,
+                value: false
+            },
+            maxDate: {
+                type: String,
+                value: false
+            },
+            yearRange: {
+                type: Number,
+                value: false
+            },
+            showWeekNumber: {
+                type: Boolean,
+                value: false
+            },
+            isRtl: {
+                type: Boolean,
+                value: false
+            },
+            yearSuffix: {
+                type: String,
+                value: ''
+            },
+            showMonthAfterYear: {
+                type: Boolean,
+                value: false
+            },
+            numberOfMonths: {
+                type: Number,
+                value: 1
+            },
+            mainCalendar: {
+                type: String,
+                value: 'left'
+            },
+            onSelect: {
+                type: String,
+                value: null
+            },
+            onOpen: {
+                type: String,
+                value: null
+            },
+            onClose: {
+                type: String,
+                value: null
+            },
+            onDraw: {
+                type: String,
+                value: null
+            }
+        },
+
+        /**
+         * Constructor
+         *
+         * Not implementing isRTL (use <html dir="rtl"> instead)
+         */
+        attached: function() {
+            var input = Polymer.dom(this).querySelector('input'),
+                trigger = Polymer.dom(this).querySelector(this.triggerSelector),
+                opts = {
+                    field: input,
+                    position: this.position,
+                    repository: this.reposition,
+                    container: document.querySelector(this.container),
+                    format: this.format,
+                    defaultDate: this.defaultDate,
+                    setDefaultDate: this.setDefaultDate !== false,
+                    firstDay: this.firstDay,
+                    minDate: this.minDate ? moment(this.minDate).toDate() : false,
+                    maxDate: this.maxDate? moment(this.maxDate).toDate() : false,
+                    yearRange: this.yearRange,
+                    showWeekNumber: this.showWeekNumber,
+                    isRTL: this.isRtl,
+                    yearSuffix: this.yearSuffix,
+                    showMonthAfterYear: this.showMonthAfterYear,
+                    numberOfMonths: this.numberOfMonths,
+                    mainCalendar: this.mainCalendar
+                }
+            ;
+
+            if (this.locale !== 'en') {
+                opts.i18n = PikadayDecorator.i18n[this.locale];
+            }
+
+            if (trigger) {
+                opts.trigger = trigger;
+            }
+
+            this.instance = new Pikaday(opts);
+        }
+    });
+</script>

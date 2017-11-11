@@ -1,0 +1,350 @@
+<!--
+version: 1.0.0
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="starcounter-upload">
+
+    <template>
+        <style>
+            :host {
+                display: inline-block;
+            }
+
+            :host input[type=file] {
+                display: none;
+            }
+
+            :host button {
+                display: block;
+                margin: 10px 0 10px 0;
+            }
+        </style>
+        <dom-if>
+            <template is="dom-if" if="{{isSubmitVisible(autoUpload, tasks.length)}}">
+                <button type="button" class="btn btn-sm btn-default" on-click="submitAllFiles">Submit</button>
+            </template>
+        </dom-if>
+        <slot id="parameters" name="parameters"></slot>
+        <slot></slot>
+        <input type="file" accept="{{fileFilter}}" id="fileElement" on-change="filesSelectedChanged" file-select="filesSelectedClick" multiple$="{{multiple}}" />
+    </template>
+    <script>
+        "use strict";
+
+        Polymer({
+            is: "starcounter-upload",
+            properties: {
+                uploadUrl: {
+                    type: String,
+                    value: null
+                },
+                tasks: {
+                    type: Array,
+                    value: [],
+                    notify: true
+                },
+                fileFilter: {
+                    type: String,
+                    value: ""
+                },
+                pasteFileTypes: {
+                    type: Array,
+                    //https://www.sitepoint.com/web-foundations/mime-types-complete-list/
+                    value: function () { return ["image/png", "image/jpeg", "image/pjpeg", "image/bmp", "image/x-windows-bmp"]; }
+                },
+                sessionId: {
+                    type: String,
+                    value: null
+                },
+                multiple: {
+                    type: Boolean,
+                    value: false
+                },
+                chunkLength: {
+                    type: Number,
+                    value: 8192
+                },
+                autoUpload: {
+                    type: Boolean,
+                    value: false
+                },
+                active: {
+                    type: Boolean, value: false
+                }
+            },
+            attached: function () {
+                this.paste = this.paste.bind(this);
+
+                document.addEventListener("paste", this.paste);
+            },
+            detached: function () {
+                document.removeEventListener("paste", this.paste);
+            },
+            isSubmitVisible: function (autoUpload, tasksLength) {
+                return !autoUpload && tasksLength > 0;
+            },
+            selectFile: function () {
+                var element = this.$.fileElement;
+                element.value = "";
+                element.click();
+            },
+            abortAllTasks: function (e) {
+                for (var i = 0; i < this.tasks.length; i++) {
+                    var task = this.tasks[i];
+
+                    if (task.socket != null) {
+                        task.socket.close(3001, "Aborted");
+                    }
+
+                    task.error = "Aborted";
+                    this.fire("statechange", task);
+                }
+
+                this.set("tasks", []);
+            },
+            processTask: function (task) {
+                var index = this.tasks.indexOf(task);
+                var that = this;
+
+                this.set("tasks." + index + ".error", null);
+                this.set("tasks." + index + ".progress", 0);
+
+                var self = this;
+                this.executeTask(task, function (task) {
+                    // Success
+                    var index = self.tasks.indexOf(task);
+
+                    if (index > -1) {
+                        self.splice("tasks", index, 1);
+                        that.fire("statechange", task);
+                    }
+                }, function (task) {
+                    // Error
+                    var index = self.tasks.indexOf(task);
+
+                    if (index > -1) {
+                        self.notifyPath("tasks." + index + ".error", task.error);
+                        that.fire("statechange", task);
+                    }
+
+                }, function (task) {
+                    // Progress
+                    var index = self.tasks.indexOf(task);
+
+                    if (index > -1) {
+                        self.notifyPath("tasks." + index + ".progress", task.progress);
+                        that.fire("statechange", task);
+                    }
+                });
+            },
+            executeTask: function (task, successCallback, errorCallback, progressCallback) {
+                task.progress = 0;
+
+                try {
+                    this.uploadTask(task, successCallback, errorCallback, progressCallback);
+                } catch (ex) {
+                    task.error = ex;
+                    console.error(task.error);
+
+                    if (typeof (errorCallback) == "function") {
+                        errorCallback(task);
+                    }
+                }
+            },
+            uploadTask: function (task, successCallback, errorCallback, progressCallback) {
+                var file = task.file;
+                var chunkLength = this.chunkLength;
+                var url = this.getUploadUrl(file);
+                var socket = new WebSocket(url);
+
+                task.socket = socket;
+
+                socket.onopen = function () {
+                    var reader = new FileReader();
+                    var currentBytePosition = 0;
+
+                    reader.onloadend = function (evt) {
+                        if (evt.target.readyState == FileReader.DONE) {
+                            if (socket == null || socket.readyState != 1) {
+                                // Not OPEN
+                                return;
+                            }
+
+                            socket.send(evt.currentTarget.result);
+                            currentBytePosition = currentBytePosition + evt.loaded;
+
+                            if (currentBytePosition >= file.size) {
+                                return;
+                            }
+
+                            // Load next chunk
+                            var endByte = currentBytePosition + chunkLength;
+
+                            if (endByte > file.size) {
+                                endByte = file.size;
+                            }
+
+                            var blob = file.slice(currentBytePosition, currentBytePosition + chunkLength);
+                            reader.readAsArrayBuffer(blob);
+                        }
+                    };
+
+                    if (typeof (progressCallback) == "function") {
+                        progressCallback(task);
+                    }
+
+                    var blob = file.slice(currentBytePosition, currentBytePosition + chunkLength);
+                    reader.readAsArrayBuffer(blob);
+                };
+
+                socket.onclose = function (evt) {
+                    socket = null;
+
+                    if (evt.code == 1000 || evt.code == 1005) { // CLOSE_NORMAL
+                        if (typeof (successCallback) == "function") {
+                            successCallback(task);
+                        }
+                    } else {
+                        if (evt.reason) {
+                            task.error = evt.reason + " (" + evt.code + ")";
+                        }
+                        else {
+                            task.error = "Socket Error code: " + evt.code;
+                        }
+
+                        if (typeof (errorCallback) == "function") {
+                            errorCallback(task);
+                        }
+                    }
+                };
+
+                socket.onmessage = function (evt) {
+                    task.progress = evt.data;
+
+                    if (task.progress >= 100) {
+                        socket.close(1000);
+                    }
+
+                    if (typeof (progressCallback) == "function") {
+                        progressCallback(task);
+                    }
+                };
+
+                socket.onerror = function (evt) {
+                    console.error("Socket error: ", JSON.stringify(evt));
+                };
+            },
+            getUploadUrl: function (file) {
+                var url = this.uploadUrl + "?filesize=" + file.size + "&sessionid=" + this.sessionId;
+
+                if (file.name) {
+                    url += ("&filename=" + file.name);
+                }
+
+                if (file.type) {
+                    url += ("&filetype=" + file.type);
+                }
+                var nodes = null;
+                if(!Polymer.Element) {
+                    //Polymer version 1
+                    nodes = this.$.parameters.getDistributedNodes();
+                } else {
+                    nodes = this.$.parameters.assignedNodes({flatten: true})
+                }
+                for (var i = 0; i < nodes.length; i++) {
+                    var node = nodes[i];
+                    var p = "&" + node.name + "=" + encodeURIComponent(node.value);
+
+                    url += p;
+                }
+
+                url = new URL(url, window.location);
+                url.protocol = window.location.protocol == "https:" ? "wss:" : "ws:";
+                url = url.toString();
+
+                return url;
+            },
+            getFileSizeString: function (size) {
+                var sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+
+                if (size == 0) {
+                    return "0 Byte";
+                }
+
+                var i = parseInt(Math.floor(Math.log(size) / Math.log(1024)));
+                var size = Math.round(size / Math.pow(1024, i), 2) + " " + sizes[i];
+
+                return size;
+            },
+            filesSelectedChanged: function () {
+                var files = this.$.fileElement.files;
+
+                for (var i = 0; i < files.length; i++) {
+                    var task = {
+                        file: files[i],
+                        progress: 0,
+                        error: null,
+                        sizeString: this.getFileSizeString(files[i].size)
+                    };
+
+                    this.push("tasks", task);
+                    if (this.autoUpload) {
+                        this.fire("statechange", task);
+                        this.processTask(task);
+                    }
+                }
+
+                this.$.fileElement.value = "";
+            },
+            submitAllFiles: function () {
+                for (var i = 0; i < this.tasks.length; i++) {
+                    var task = this.tasks[i];
+                    if (!task.socket) {
+                        this.fire("statechange", task);
+                        this.processTask(task);
+                    }
+                }
+            },
+            paste: function (e) {
+                if (!e.clipboardData || !this.active) {
+                    return;
+                }
+
+                var items = e.clipboardData.items;
+
+                if (!items || !items.length) {
+                    return;
+                }
+
+                for (var i = 0; i < items.length; i++) {
+                    var type = items[i].type;
+
+                    if (this.pasteFileTypes.indexOf(type) < 0) {
+                        continue;
+                    }
+
+                    var blob = items[i].getAsFile();
+                    this.onPasted(blob);
+                    e.preventDefault();
+                }
+            },
+            onPasted: function (file) {
+                var task = {
+                    file: file,
+                    progress: 0,
+                    error: null,
+                    sizeString: this.getFileSizeString(file.size)
+                };
+
+                this.push("tasks", task);
+
+                if (this.autoUpload) {
+                    this.fire("statechange", task);
+                    this.processTask(task);
+                }
+            }
+        });
+    </script>
+</dom-module>

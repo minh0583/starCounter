@@ -228,6 +228,7 @@ namespace StarCounter.App.Client.Chatter
                 if (chatMessage.IsDraft) return new Json();
 
                 var textRelation = Db.SQL<ChatMessageTextRelation>(@"Select m from Simplified.Ring6.ChatMessageTextRelation m Where m.ToWhat = ?", chatMessage).First;
+                //if (textRelation?.Content?.Deleted == true) return new Json();
                 var chatMessageTextId = textRelation?.Content?.GetObjectID();
                 if (chatMessageTextId == null) return new Json();
 

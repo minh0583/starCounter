@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>starcounter-include demo</title>
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="starcounter-upload.html" rel="import" />
+
+    <script src="test/mockServer.js"></script>
+
+    <style>
+        body {
+            padding: 50px;
+        }
+
+        span.btn-link,
+        span.btn-link:hover {
+            text-decoration: none;
+            color: inherit;
+            cursor: text;
+        }
+    </style>
+</head>
+<body>
+    <dom-bind>
+        <template is="dom-bind">
+            <fieldset>
+                <legend>Uploaded files</legend>
+                <dom-if>
+                    <template is="dom-if" if="{{model.files.length}}">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Size</th>
+                                    <th>Progress</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template is="dom-repeat" items="{{model.files}}">
+                                    <tr>
+                                        <td>{{item.file.name}}</td>
+                                        <td>{{item.file.type}}</td>
+                                        <td>{{item.sizeString}}</td>
+                                        <td>
+                                            <span>{{item.progress}}</span>%
+                                        </td>
+                                        <td>{{item.error}}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </template>
+                </dom-if>
+                <dom-if>
+                    <template is="dom-if" if="{{!model.files.length}}">
+                        <p>No files uploaded so far</p>
+                    </template>
+                </dom-if>
+            </fieldset>
+            <hr />
+            <div class="starcounter-upload-tasks">
+                <h4>The <code>starcounter-upload.tasks</code> collection</h4>
+                <dom-if>
+                    <template is="dom-if" if="{{tasks.length}}">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Size</th>
+                                    <th>Progress</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template is="dom-repeat" items="{{tasks}}">
+                                    <tr>
+                                        <td>{{item.file.name}}</td>
+                                        <td>{{item.file.type}}</td>
+                                        <td>{{item.sizeString}}</td>
+                                        <td>
+                                            <span>{{item.progress}}</span>%
+                                        </td>
+                                        <td>{{item.error}}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </template>
+                </dom-if>
+                <dom-if>
+                    <template is="dom-if" if="{{!tasks.length}}">
+                        <p>No files in queue</p>
+                    </template>
+                </dom-if>
+            </div>
+            <hr />
+            <p>
+                <starcounter-upload upload-url="/starcounter-upload" session-id="mock-session" tasks="{{tasks}}" on-statechange="onUploadingStateChange" multiple="true" auto-upload="true">
+                    <button type="button" class="btn btn-sm btn-default" on-click="selectFile">Select files to upload</button>
+                    <span class="btn btn-sm btn-link">Click <code>Ctrl + V</code> to paste image from clipboard</span>
+                </starcounter-upload>
+            </p>
+            <p>
+                <small>
+                    <b>Note:</b> this example mocks <code>WebSocket</code> connection.
+                </small>
+            </p>
+        </template>
+    </dom-bind>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+            var parentNode = template.parentNode;
+            if (!Polymer.Element) {
+                // Polymer v 1.0
+                template  = template.firstElementChild;
+                parentNode = parentNode.parentNode;
+            }
+            
+            var model = {
+                files: []
+            };
+
+            template.selectFile = function () {
+                parentNode.querySelector("starcounter-upload").selectFile();
+            };
+
+            template.onUploadingStateChange = function (e) {
+                var task = e.detail;
+
+                if (task.progress >= 100 || task.error) {
+                    template.push("model.files", task);
+                }
+            };
+
+            template.model = model;
+        })();
+    </script>
+</body>
+</html>

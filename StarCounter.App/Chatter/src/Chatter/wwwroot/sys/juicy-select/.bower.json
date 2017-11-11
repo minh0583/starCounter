@@ -1,0 +1,38 @@
+{
+  "name": "juicy-select",
+  "homepage": "https://github.com/Juicy/juicy-select",
+  "authors": [
+    "Konstantin <const.miyang@gmail.com>"
+  ],
+  "description": "Polymer select element with multiple option support",
+  "main": "juicy-select.html",
+  "moduleType": [],
+  "keywords": [
+    "polymer",
+    "select",
+    "multiselect",
+    "juicy"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "../",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.9 - 2"
+  },
+  "version": "1.0.0",
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.0",
+    "commit": "74e771e98d2225c60cb9cb7ef6d603ff8f32c1a3"
+  },
+  "_source": "https://github.com/Juicy/juicy-select.git",
+  "_target": "^1.0.0",
+  "_originalSource": "Juicy/juicy-select"
+}
